@@ -89,6 +89,7 @@ export const featuredWork = [
     ],
     outcome: "Identified how employees informally negotiated cross-company relationships, adapted processes around commingled data and undocumented knowledge, and worked around shared-system and access gaps that the original separation plan hadn't fully accounted for. Produced practical recommendations for managing the people and process side of future corporate spin-offs, alongside academic contributions to the IS literature on organisational separation.",
     contribution: "Co-authored the research design, interview data collection and thematic analysis as part of a four-person research team, with academic mentorship from UCC and industry mentors at Aptiv and Versigent.",
+    award: "Most Engaging Presentation Award – UCC MSc ISBP",
     icon: "systems",
   },
   {
