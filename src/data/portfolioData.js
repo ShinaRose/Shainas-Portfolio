@@ -77,6 +77,21 @@ export const skillGroups = [
 
 export const featuredWork = [
   {
+    title: "Commingled to Independent: The Art of Uncoupling – An IS Perspective of How IT Teams Experience a Corporate Spin-Off: The Aptiv-Versigent Case",
+    label: "MSc research dissertation · Qualitative case study",
+    role: "Researcher (Information Systems)",
+    tools: ["Qualitative research", "Semi-structured interviews", "Thematic analysis", "Case study design"],
+    problem: "When a business unit spins off from its parent company, legal separation doesn't mean operational independence. Aptiv's 2026 spin-off of its EDS division into Versigent left IT teams still sharing systems, data and processes under a Transition Service Agreement, but little research explores how employees actually experience that day-to-day, rather than the deal itself.",
+    approach: [
+      "Designed a single embedded case study of the Aptiv-Versigent spin-off, conducting eight semi-structured interviews with IT team members across both organisations.",
+      "Applied thematic analysis to surface how people, process and technology were each affected by the separation.",
+      "Investigated relationship ambiguity between companies, decisions to keep or change processes, and shared-system, access and technical-gap issues.",
+    ],
+    outcome: "Identified how employees informally negotiated cross-company relationships, adapted processes around commingled data and undocumented knowledge, and worked around shared-system and access gaps that the original separation plan hadn't fully accounted for. Produced practical recommendations for managing the people and process side of future corporate spin-offs, alongside academic contributions to the IS literature on organisational separation.",
+    contribution: "Co-authored the research design, interview data collection and thematic analysis as part of a four-person research team, with academic mentorship from UCC and industry mentors at Aptiv and Versigent.",
+    icon: "systems",
+  },
+  {
     title: "AI Career Path Recommender",
     label: "Streamlit data app",
     role: "Data Analyst / App Developer",
