@@ -27,6 +27,13 @@ export default function WorkSection() {
                   <p className="mt-3 text-base font-bold text-slate-700">My role: {project.role}</p>
                   <p className="mt-3 text-sm font-semibold text-slate-500">Case study {index + 1}</p>
 
+                  {project.award && (
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-amber-800">
+                      <Icon name="award" className="h-4 w-4" />
+                      <span>{project.award}</span>
+                    </div>
+                  )}
+
                   <div className="mt-5 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wide text-purple-800">
                     {project.tools.map((tool, toolIndex) => (
                       <span key={tool}>
