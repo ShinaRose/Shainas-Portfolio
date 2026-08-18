@@ -1,11 +1,19 @@
+import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import LinkButton from "../components/LinkButton.jsx";
 import { courseFocus, linkedInUrl, resumeRequestUrl } from "../data/portfolioData.js";
+import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ResumeSection() {
   return (
     <section id="resume" className="scroll-mt-28 bg-[#fff8fb]">
-      <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+      <motion.div
+        className="mx-auto max-w-6xl px-6 py-16 md:py-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={revealUp}
+      >
         <Card className="rounded-[2rem] border-rose-100 bg-white shadow-xl shadow-rose-100/70">
           <CardContent className="grid gap-8 p-8 md:grid-cols-[1fr_auto] md:items-center">
             <div>
@@ -22,7 +30,7 @@ export default function ResumeSection() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </section>
   );
 }

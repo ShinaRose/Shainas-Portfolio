@@ -1,10 +1,18 @@
+import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import { educationHighlights } from "../data/portfolioData.js";
+import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ExperienceSection() {
   return (
     <section id="experience" className="scroll-mt-28 bg-gradient-to-br from-slate-950 via-rose-950 to-purple-950 text-white">
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-20">
+      <motion.div
+        className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={revealUp}
+      >
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-200">Experience / Education</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">MSc study, with some real-world experience to go with it.</h2>
@@ -25,7 +33,7 @@ export default function ExperienceSection() {
             </Card>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

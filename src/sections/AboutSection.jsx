@@ -1,11 +1,19 @@
+import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { targetRoles } from "../data/portfolioData.js";
+import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function AboutSection() {
   return (
     <section id="about" className="scroll-mt-28 border-y border-rose-100 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[0.86fr_1.14fr] md:items-start md:py-20">
+      <motion.div
+        className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[0.86fr_1.14fr] md:items-start md:py-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={revealUp}
+      >
         <SectionHeading
           eyebrow="About"
           title="I'm drawn to the systems and data side of how a business actually runs."
@@ -23,7 +31,7 @@ export default function AboutSection() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </section>
   );
 }

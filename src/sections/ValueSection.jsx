@@ -1,10 +1,18 @@
+import { motion } from "framer-motion";
 import Icon from "../components/Icon.jsx";
 import { softSkills, valueProps } from "../data/portfolioData.js";
+import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ValueSection() {
   return (
     <section className="bg-gradient-to-br from-rose-50 to-purple-50 border-y border-rose-100">
-      <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
+      <motion.div
+        className="mx-auto max-w-6xl px-6 py-14 md:py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={revealUp}
+      >
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Why hire me</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 md:text-4xl">What I bring to your team.</h2>
@@ -25,7 +33,7 @@ export default function ValueSection() {
             </span>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,10 +1,19 @@
+import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { skillGroups } from "../data/portfolioData.js";
+import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="mx-auto max-w-6xl scroll-mt-28 px-6 py-16 md:py-20">
+    <motion.section
+      id="skills"
+      className="mx-auto max-w-6xl scroll-mt-28 px-6 py-16 md:py-20"
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      variants={revealUp}
+    >
       <SectionHeading
         eyebrow="Skills"
         title="Different labels, one throughline."
@@ -12,7 +21,7 @@ export default function SkillsSection() {
       />
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group) => (
-          <Card key={group.title} className="rounded-[1.75rem] border-rose-100 bg-white shadow-sm shadow-rose-100/70">
+          <Card key={group.title} className="rounded-[1.75rem] border-rose-100 bg-white shadow-sm shadow-rose-100/70 transition-shadow hover:shadow-md hover:shadow-rose-200/60">
             <CardContent className="p-6">
               <h3 className="text-lg font-extrabold text-slate-950">{group.title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">{group.description}</p>
@@ -23,6 +32,6 @@ export default function SkillsSection() {
           </Card>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

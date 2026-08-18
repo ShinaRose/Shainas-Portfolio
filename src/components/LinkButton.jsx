@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Icon from "./Icon.jsx";
 import { scrollToSection } from "../utils/scrollToSection.js";
 
@@ -13,16 +14,19 @@ export default function LinkButton({ href, children, variant = "primary", icon =
   };
 
   return (
-    <a
+    <motion.a
       href={href}
       onClick={handleClick}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       aria-label={ariaLabel}
-      className={`inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-extrabold transition focus:outline-none focus:ring-4 focus:ring-rose-200 ${variants[variant]}`}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      className={`group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-extrabold transition-colors focus:outline-none focus:ring-4 focus:ring-rose-200 ${variants[variant]}`}
     >
       {children}
-      <Icon name={icon} className="h-4 w-4" />
-    </a>
+      <Icon name={icon} className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+    </motion.a>
   );
 }

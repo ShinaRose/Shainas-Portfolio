@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import Header from "./sections/Header.jsx";
 import HeroSection from "./sections/HeroSection.jsx";
 import WorkSection from "./sections/WorkSection.jsx";
@@ -8,6 +9,7 @@ import ExperienceSection from "./sections/ExperienceSection.jsx";
 import ResumeSection from "./sections/ResumeSection.jsx";
 import ContactSection from "./sections/ContactSection.jsx";
 import Footer from "./sections/Footer.jsx";
+import BackToTop from "./components/BackToTop.jsx";
 import { actionLinks, featuredWork } from "./data/portfolioData.js";
 
 export function validatePortfolioLinks() {
@@ -20,22 +22,25 @@ export function validatePortfolioLinks() {
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen scroll-smooth bg-[#fff8fb] text-slate-900 selection:bg-rose-200 selection:text-rose-950">
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-rose-800 focus:shadow-xl">
-        Skip to main content
-      </a>
-      <Header />
-      <main id="main-content">
-        <HeroSection />
-        <WorkSection />
-        <ValueSection />
-        <SkillsSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ResumeSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen scroll-smooth bg-[#fff8fb] text-slate-900 selection:bg-rose-200 selection:text-rose-950">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-rose-800 focus:shadow-xl">
+          Skip to main content
+        </a>
+        <Header />
+        <main id="main-content">
+          <HeroSection />
+          <WorkSection />
+          <ValueSection />
+          <SkillsSection />
+          <AboutSection />
+          <ExperienceSection />
+          <ResumeSection />
+          <ContactSection />
+        </main>
+        <Footer />
+        <BackToTop />
+      </div>
+    </MotionConfig>
   );
 }
