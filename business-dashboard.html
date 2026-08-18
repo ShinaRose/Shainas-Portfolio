@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Business Decision Support Dashboard Demo | Shina Rose Dsouza</title>
+<link rel="stylesheet" href="shared.css" />
+<script src="chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="demo-header">
+    <div class="demo-header-inner">
+      <a class="back-link" href="../"> &larr; Back to portfolio</a>
+      <span class="demo-badge">Concept demo</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Data Analytics Project</p>
+      <h1 class="demo-title">Business Decision Support Dashboard</h1>
+      <p class="demo-sub">Business users need data presented in a way that supports quick understanding rather than overwhelming them with raw information. This is a working version of that dashboard concept, built with sample data to show the structure and the kind of decision it's meant to support.</p>
+    </div>
+
+    <div class="grid grid-4" style="margin-bottom: 18px;">
+      <div class="card">
+        <p class="kpi-label">Revenue (Q3)</p>
+        <p class="kpi-value">€284,600</p>
+        <span class="kpi-delta up">▲ 12% vs Q2</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Orders</p>
+        <p class="kpi-value">3,412</p>
+        <span class="kpi-delta up">▲ 6% vs Q2</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Avg. Order Value</p>
+        <p class="kpi-value">€83.40</p>
+        <span class="kpi-delta up">▲ 5% vs Q2</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Fulfilment Rate</p>
+        <p class="kpi-value">96.1%</p>
+        <span class="kpi-delta down">▼ 1.4pts vs Q2</span>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom: 18px;">
+      <div class="card">
+        <p class="section-title">Revenue trend, last 6 months</p>
+        <canvas id="revenueChart" height="220"></canvas>
+      </div>
+      <div class="card">
+        <p class="section-title">Revenue by category</p>
+        <canvas id="categoryChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 18px;">
+      <p class="section-title">What this is telling us</p>
+      <div class="grid grid-3">
+        <div class="note emerald">📈 Revenue is up for a third straight month, led by the Services category.</div>
+        <div class="note amber">⚠️ Fulfilment rate slipped slightly, worth a closer look at the Hardware category's backlog.</div>
+        <div class="note rose">💡 Average order value is climbing faster than order volume: a pricing or bundling change worth investigating.</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Built to demonstrate dashboard structure, KPI selection and how findings turn into a plain-language summary. The underlying numbers are illustrative sample data, not a real company's figures.
+    </div>
+  </div>
+
+  <script>
+    const months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+    new Chart(document.getElementById("revenueChart"), {
+      type: "line",
+      data: {
+        labels: months,
+        datasets: [{
+          label: "Revenue (€)",
+          data: [198000, 210000, 221000, 236000, 254000, 284600],
+          borderColor: "#be123c",
+          backgroundColor: "rgba(190,18,60,0.08)",
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4,
+          pointBackgroundColor: "#be123c",
+        }],
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { ticks: { callback: (v) => "€" + v / 1000 + "k" } } },
+      },
+    });
+
+    new Chart(document.getElementById("categoryChart"), {
+      type: "doughnut",
+      data: {
+        labels: ["Services", "Hardware", "Subscriptions", "Support Plans"],
+        datasets: [{
+          data: [38, 27, 22, 13],
+          backgroundColor: ["#be123c", "#f43f5e", "#a855f7", "#581c87"],
+          borderWidth: 0,
+        }],
+      },
+      options: {
+        plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 12 } } } },
+        cutout: "62%",
+      },
+    });
+  </script>
+</body>
+</html>
