@@ -7,8 +7,8 @@ export default function ExperienceSection() {
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-20">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-200">Experience / Education</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">Current MSc study supported by practical operational experience.</h2>
-          <p className="mt-5 leading-8 text-rose-50/85">My background combines information systems study with customer-facing retail operations exposure, helping me understand both digital systems and the people who use them.</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">MSc study, with some real-world experience to go with it.</h2>
+          <p className="mt-5 leading-8 text-rose-50/85">Between my MSc and my time in retail, I've got a decent feel for both the systems side of a business and the people actually using them day to day.</p>
         </div>
 
         <div className="space-y-5">

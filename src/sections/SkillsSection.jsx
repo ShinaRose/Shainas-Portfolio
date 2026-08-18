@@ -7,10 +7,10 @@ export default function SkillsSection() {
     <section id="skills" className="mx-auto max-w-6xl scroll-mt-28 px-6 py-16 md:py-20">
       <SectionHeading
         eyebrow="Skills"
-        title="Skills grouped for quick employer review."
-        description="My strongest fit is for roles where user experience, front-end thinking, structured analysis and business understanding overlap."
+        title="Different labels, one throughline."
+        description="The categories vary — data, systems, security, operations — but it's really the same instinct in different directions: use data and structured thinking to make something clearer."
       />
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group) => (
           <Card key={group.title} className="rounded-[1.75rem] border-rose-100 bg-white shadow-sm shadow-rose-100/70">
             <CardContent className="p-6">

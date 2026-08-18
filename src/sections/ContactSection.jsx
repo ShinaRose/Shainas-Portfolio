@@ -10,8 +10,8 @@ export default function ContactSection() {
           <CardContent className="grid gap-8 p-8 md:grid-cols-[1fr_auto] md:items-center md:p-10">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-100">Contact</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Let’s connect about graduate data, systems and supply chain opportunities..</h2>
-              <p className="mt-4 max-w-2xl text-rose-50">I am currently open to graduate, internship and entry-level opportunities across data science, information systems, IT project management, database administration, cybersecurity analysis and supply chain analysis. Please get in touch if my background could support your team.</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Let's talk about graduate roles in data, systems or supply chain.</h2>
+              <p className="mt-4 max-w-2xl text-rose-50">I'm open to graduate, internship and entry-level roles across data, systems, IT, security and supply chain — get in touch if you think my background could be a fit for your team.</p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">

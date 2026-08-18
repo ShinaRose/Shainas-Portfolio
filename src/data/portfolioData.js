@@ -1,4 +1,6 @@
-export const profileImage = "https://media.licdn.com/dms/image/v2/D4D03AQHiiYinDm8YFg/profile-displayphoto-scale_400_400/B4DZwu2hZbIYAg-/0/1770312571104?e=1779321600&v=beta&t=Jh7OJg4RIIVSGBq_hIWUGqmRIgCKpm-7xgPA2iVreH4";
+import profileImg from "../assets/profile.jpg";
+
+export const profileImage = profileImg;
 
 export const linkedInUrl = "https://www.linkedin.com/in/shina-rose-dsouza-443a63287/";
 export const emailUrl = "https://mail.google.com/mail/?view=cm&to=shainarose1622@gmail.com&su=Portfolio%20Enquiry%20-%20Graduate%20Opportunity";
@@ -45,32 +47,32 @@ export const employerSnapshot = [
 export const skillGroups = [
   {
     title: "Data Science & Analytics",
-    description: "Analysing data, building dashboards and turning business information into useful decisions.",
+    description: "Comfortable turning raw data into dashboards and insight that actually help a decision get made.",
     skills: ["Python", "SQL", "Excel", "Dashboards", "Data visualisation", "Statistical analysis"],
   },
   {
     title: "Information Systems",
-    description: "Connecting business needs, system requirements and data quality through structured analysis.",
+    description: "The connective tissue between what a business actually needs and how its systems and data are built.",
     skills: ["Systems analysis", "Database design", "Data modelling", "Requirements gathering", "Process mapping", "Documentation"],
   },
   {
     title: "IT Project & Operations",
-    description: "Supporting technology-enabled change through planning, communication and process improvement.",
+    description: "Keeping projects moving through planning and clear communication, and improving the process once you notice what's not working.",
     skills: ["IT project management", "Stakeholder communication", "Risk tracking", "Agile awareness", "Workflow improvement", "Change support"],
   },
   {
     title: "Cybersecurity & Governance",
-    description: "Applying security-aware thinking to data handling, access, privacy and digital governance.",
+    description: "Thinking about who should have access to what, and how data gets handled responsibly along the way.",
     skills: ["Cybersecurity awareness", "Access control", "Data privacy", "Risk awareness", "Digital governance", "Compliance"],
   },
   {
     title: "Supply Chain Analysis",
-    description: "Using data and systems thinking to understand inventory, suppliers, lead times and operations performance.",
+    description: "Looking at inventory, suppliers and lead times through that same data-and-systems lens.",
     skills: ["Inventory analysis", "Forecasting", "Supplier performance", "Lead-time tracking", "Operations metrics", "Process optimisation"],
   },
   {
     title: "Tools & Methods",
-    description: "Using practical tools to analyse, organise, communicate and present work clearly.",
+    description: "The practical toolkit behind all of it, plus knowing how to explain the results to someone who wasn't in the room.",
     skills: ["Excel", "Python", "SQL", "Dashboards", "Research synthesis", "Business documentation"],
   },
 ];
@@ -104,7 +106,7 @@ export const featuredWork = [
       "Compared the user profile with career profiles using cosine similarity.",
       "Ranked career matches and displayed recommended skills, certifications and a 30-day action plan.",
     ],
-    outcome: "A working career recommendation app that demonstrates Python, data analysis, machine learning similarity scoring and practical decision-support thinking.",
+    outcome: "A working app that turns a student's skill ratings into real career suggestions — hands-on proof of the Python and data analysis work behind it, not just the theory.",
     contribution: "Built the app structure, career matching logic, CSV data model and recommendation output.",
     icon: "chart",
   },
@@ -119,7 +121,7 @@ export const featuredWork = [
       "Grouped content by service need and mapped how information should flow between students, support teams and systems.",
       "Proposed a clearer structure focused on data quality, service visibility and faster decision-making.",
     ],
-    outcome: "A clearer student-facing concept that demonstrates systems thinking, information organisation, process improvement and business analysis.",
+    outcome: "A clearer concept for how student services could work, built around systems thinking, information organisation and practical business analysis.",
     contribution: "Owned the process review, information structure, requirements thinking and improvement rationale.",
     icon: "systems",
   },
@@ -149,7 +151,7 @@ export const featuredWork = [
       "Translated business needs into clearer system and workflow requirements.",
       "Proposed a future-state process focused on data quality, clarity and operational improvement.",
     ],
-    outcome: "A structured case study demonstrating how business analysis and systems thinking can support better digital service delivery.",
+    outcome: "A structured case study showing how the right business analysis and systems thinking can smooth out digital service delivery.",
     contribution: "Analysed the process, identified improvement opportunities and documented practical recommendations.",
     icon: "systems",
   },
@@ -173,13 +175,13 @@ export const educationHighlights = [
   {
     title: "MSc Information Systems for Business Performance",
     meta: "University College Cork · Current student",
-    description: "Current MSc study focused on business performance, information systems, analytics, databases, digital governance, project management and technology-enabled improvement.",
+    description: "Currently studying business performance, information systems, analytics, databases, digital governance and project management — all pointing toward the same goal: using technology to make things run better.",
     tags: ["Business Decision Support", "BI, Analytics & AI", "Systems Analysis", "Database Design", "IT Project Management"],
   },
   {
     title: "Retail Operations Experience",
     meta: "SuperValu · Customer-facing and operations exposure",
-    description: "Practical exposure to customer service, teamwork, stock awareness and day-to-day retail processes. This supports my interest in operations, supply chain visibility, data-informed decisions and process improvement.",
+    description: "Hands-on customer service and teamwork experience, plus a ground-level view of stock and day-to-day retail operations — the kind of exposure that feeds directly into my interest in supply chain visibility and process improvement.",
     tags: ["Customer service", "Teamwork", "Operations", "Stock awareness", "Process improvement"],
   },
 ];
@@ -199,22 +201,22 @@ export const valueProps = [
   {
     icon: "chart",
     title: "Data-aware",
-    description: "I focus on turning information into clear, useful insight for business decisions.",
+    description: "Good data should make a decision easier, not harder — that's the standard I hold my own work to.",
   },
   {
     icon: "systems",
     title: "Systems-minded",
-    description: "I connect processes, people, data and technology through structured analysis.",
+    description: "Processes, people, data, technology: I care about how they all connect, not just one piece of the puzzle.",
   },
   {
     icon: "shield",
     title: "Security-conscious",
-    description: "I consider data privacy, access and governance when thinking about digital systems.",
+    description: "Privacy, access and governance aren't an afterthought for me — they're part of how I think about any system from the start.",
   },
   {
     icon: "target",
     title: "Operations-focused",
-    description: "I am interested in how analytics improves supply chain and everyday business performance.",
+    description: "Analytics only matters if it actually changes how a supply chain or a business runs day to day.",
   },
 ];
 

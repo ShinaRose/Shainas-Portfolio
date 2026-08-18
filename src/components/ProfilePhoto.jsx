@@ -4,7 +4,7 @@ import { profileImage } from "../data/portfolioData.js";
 export default function ProfilePhoto() {
   const [imgFailed, setImgFailed] = React.useState(false);
 
-  if (imgFailed) {
+  if (!profileImage || imgFailed) {
     return (
       <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-3xl font-extrabold text-rose-900 shadow-xl">
         SD
@@ -18,8 +18,6 @@ export default function ProfilePhoto() {
       alt="Portrait of Shina Rose Dsouza"
       className="h-28 w-28 rounded-full border-4 border-white object-cover shadow-xl"
       onError={() => setImgFailed(true)}
-      referrerPolicy="no-referrer"
-      crossOrigin="anonymous"
     />
   );
 }

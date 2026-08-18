@@ -23,11 +23,11 @@ export default function HeroSection() {
           </div>
 
           <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-slate-950 md:text-6xl">
-            Data-focused information systems graduate connecting analytics, operations and business systems.
+            I make sense of data, systems and the businesses that run on them.
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            I am Shina Rose Dsouza, a current MSc Information Systems for Business Performance student at University College Cork. I am preparing for data science, information systems, IT project, database, cybersecurity and supply chain analyst roles where I can turn data, systems knowledge and business goals into clear, useful insights.
+            I'm Shina, an MSc Information Systems student at University College Cork, and I like problems that sit where data, systems and business decisions overlap. I'm currently looking for a graduate role — anywhere from data science and systems analysis to IT project work, cybersecurity or supply chain — where that mix is actually useful.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
