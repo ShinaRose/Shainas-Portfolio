@@ -115,6 +115,7 @@ export const featuredWork = [
     label: "Information systems case study",
     role: "Business Systems Analyst",
     tools: ["Systems analysis", "Process mapping", "Data quality", "Requirements"],
+    liveUrl: "demos/student-services.html",
     problem: "Students need quick access to important support, course and service information, but digital journeys can become difficult when information is scattered, duplicated or not clearly connected to the right service process.",
     approach: [
       "Reviewed the student service journey and identified where information gaps or process confusion could slow users down.",
@@ -130,6 +131,7 @@ export const featuredWork = [
     label: "Data analytics project",
     role: "Data Analyst",
     tools: ["Excel", "SQL", "Dashboard design", "KPIs", "Business decision support"],
+    liveUrl: "demos/business-dashboard.html",
     problem: "Business users need data presented in a way that supports quick understanding rather than overwhelming them with raw information.",
     approach: [
       "Selected the most useful business metrics for a dashboard view.",
@@ -145,6 +147,7 @@ export const featuredWork = [
     label: "Systems analysis case study",
     role: "Business Systems Analyst",
     tools: ["Systems analysis", "Process mapping", "Requirements", "Documentation"],
+    liveUrl: "demos/process-improvement.html",
     problem: "A business process can become inefficient when operational steps, system requirements and data ownership are not clearly connected.",
     approach: [
       "Mapped the current-state process and identified pain points.",
@@ -160,6 +163,7 @@ export const featuredWork = [
     label: "Supply chain analytics",
     role: "Supply Chain Analyst",
     tools: ["Excel", "Forecasting", "Inventory KPIs", "Supplier metrics", "Operations analysis"],
+    liveUrl: "demos/supply-chain-dashboard.html",
     problem: "Operations teams need visibility into inventory, supplier performance and lead-time issues before they become service or cost problems.",
     approach: [
       "Defined practical supply chain KPIs for inventory, supplier performance and fulfilment visibility.",

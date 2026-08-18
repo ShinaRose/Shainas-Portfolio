@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Services Concept — Demo | Shina Rose Dsouza</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .toggle-row { display: flex; gap: 10px; margin-bottom: 22px; flex-wrap: wrap; }
+  .finder-grid { display: grid; grid-template-columns: 260px 1fr; gap: 18px; }
+  @media (max-width: 720px) { .finder-grid { grid-template-columns: 1fr; } }
+  .category-list { display: flex; flex-direction: column; gap: 8px; }
+  .category-btn {
+    text-align: left; font-family: inherit; font-weight: 700; font-size: 14px;
+    padding: 12px 14px; border-radius: 14px; border: 1px solid var(--rose-100);
+    background: #fff; color: var(--slate-700); cursor: pointer; transition: all 0.15s ease;
+  }
+  .category-btn:hover { background: var(--rose-50); }
+  .category-btn.active { background: var(--rose-700); color: #fff; border-color: var(--rose-700); }
+  .result-row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rose-100); }
+  .result-row:last-child { border-bottom: none; }
+  .result-label { font-weight: 700; color: var(--slate-900); font-size: 14px; }
+  .result-value { font-weight: 700; color: var(--rose-800); font-size: 14px; text-align: right; }
+  .scattered-item { display: inline-block; margin: 4px; padding: 8px 12px; border-radius: 10px; background: #f1f5f9; color: var(--slate-600); font-size: 13px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <header class="demo-header">
+    <div class="demo-header-inner">
+      <a class="back-link" href="../"> &larr; Back to portfolio</a>
+      <span class="demo-badge">Concept demo</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Information Systems Case Study</p>
+      <h1 class="demo-title">Student Services, Organised by Need</h1>
+      <p class="demo-sub">Students need quick access to important support, course and service information, but digital journeys get difficult when information is scattered, duplicated, or not clearly connected to the right process. Here's the "before vs after" and a working version of the proposed structure.</p>
+    </div>
+
+    <div class="card" style="margin-bottom: 18px;">
+      <p class="section-title">Before: information scattered across pages</p>
+      <div>
+        <span class="scattered-item">Fees FAQ (old page)</span>
+        <span class="scattered-item">Student Portal → Finance tab</span>
+        <span class="scattered-item">Emailed PDF from registrar</span>
+        <span class="scattered-item">Housing Office contact form</span>
+        <span class="scattered-item">Wellbeing service (separate site)</span>
+        <span class="scattered-item">IT Helpdesk ticket system</span>
+        <span class="scattered-item">Course handbook (PDF, v3)</span>
+      </div>
+      <p style="font-size: 13px; color: var(--slate-500); margin: 14px 0 0;">Same information, seven different places — no clear map of which one is current or who actually owns the answer.</p>
+    </div>
+
+    <div class="card">
+      <p class="section-title">After: pick what you need, get the right service</p>
+      <div class="finder-grid">
+        <div class="category-list" id="categoryList"></div>
+        <div class="card" id="resultPanel" style="box-shadow:none; background: var(--rose-50); border-color: var(--rose-100);"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Built to demonstrate the information architecture behind the concept — service names and contact details are illustrative, not a real university's actual services.
+    </div>
+  </div>
+
+  <script>
+    const services = [
+      { label: "Fees & Payments", owner: "Finance Office", channel: "Student Portal → Finance", turnaround: "1–2 business days", note: "Includes payment plans, refunds and fee status queries." },
+      { label: "Housing", owner: "Accommodation Office", channel: "Online form + drop-in hours", turnaround: "2–3 business days", note: "On-campus housing, off-campus listings, and contract issues." },
+      { label: "Wellbeing & Support", owner: "Student Wellbeing Team", channel: "Booking link (same-day slots available)", turnaround: "Same day for urgent requests", note: "Counselling, disability support and general wellbeing check-ins." },
+      { label: "Course & Registration", owner: "Academic Registry", channel: "Registry email queue", turnaround: "3–5 business days", note: "Module changes, transcripts, and registration holds." },
+      { label: "IT Help", owner: "IT Service Desk", channel: "Helpdesk ticket or live chat", turnaround: "Same day for account issues", note: "Login problems, Wi-Fi access, and software licences." },
+    ];
+
+    const categoryList = document.getElementById("categoryList");
+    const resultPanel = document.getElementById("resultPanel");
+
+    function render(index) {
+      categoryList.querySelectorAll(".category-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+      const s = services[index];
+      resultPanel.innerHTML = `
+        <p class="section-title" style="margin-bottom:12px;">${s.label}</p>
+        <div class="result-row"><span class="result-label">Owned by</span><span class="result-value">${s.owner}</span></div>
+        <div class="result-row"><span class="result-label">How to reach them</span><span class="result-value">${s.channel}</span></div>
+        <div class="result-row"><span class="result-label">Typical turnaround</span><span class="result-value">${s.turnaround}</span></div>
+        <p style="font-size:13px; color:var(--slate-600); margin-top:12px;">${s.note}</p>
+      `;
+    }
+
+    services.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.className = "category-btn";
+      btn.textContent = s.label;
+      btn.onclick = () => render(i);
+      categoryList.appendChild(btn);
+    });
+
+    render(0);
+  </script>
+</body>
+</html>
