@@ -93,7 +93,7 @@ export const featuredWork = [
     contribution: "Co-authored the research design, interview data collection and thematic analysis as part of a four-person research team, with academic mentorship from UCC and industry mentors at Aptiv and Versigent.",
     award: "Most Engaging Presentation Award – UCC MSc ISBP",
     icon: "systems",
-    videoUrl: "https://www.youtube.com/embed/RoO0AfzYUlA",
+    videoUrl: "https://drive.google.com/file/d/1XHLoVXVJh4OFVJXX_jj9CtBpqF5Qyufv/preview",
   },
   {
     title: "AI Career Path Recommender",

@@ -6,7 +6,7 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="scroll-mt-28 border-t border-rose-100 bg-gradient-to-b from-purple-50/50 to-rose-50/40">
+    <section id="contact" className="scroll-mt-28 border-t border-rose-100 bg-gradient-to-b from-purple-200 to-rose-200">
       <motion.div
         className="mx-auto max-w-6xl px-6 py-16 md:py-20"
         initial="hidden"

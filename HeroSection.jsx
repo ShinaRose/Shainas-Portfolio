@@ -8,9 +8,10 @@ import { fadeUp } from "../utils/animations.js";
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffe4ef,transparent_34%),linear-gradient(135deg,#fff8fb_0%,#ffffff_42%,#f3efff_100%)]">
-      <div className="absolute right-[-7rem] top-8 h-80 w-80 rounded-full bg-rose-200/40 blur-3xl" />
-      <div className="absolute bottom-[-10rem] left-[-7rem] h-96 w-96 rounded-full bg-purple-200/40 blur-3xl" />
+    <section id="home" className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffc2dc,transparent_50%),linear-gradient(135deg,#ffd9ea_0%,#f8ddff_45%,#dcc8ff_100%)]">
+      <div className="absolute right-[-7rem] top-8 h-96 w-96 rounded-full bg-rose-300/40 blur-3xl" />
+      <div className="absolute bottom-[-10rem] left-[-7rem] h-[28rem] w-[28rem] rounded-full bg-purple-300/40 blur-3xl" />
+      <div className="absolute right-1/4 bottom-0 h-64 w-64 rounded-full bg-amber-200/30 blur-3xl" />
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.14fr_0.86fr] md:items-center md:py-24 lg:py-28">
         <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ duration: 0.55 }}>

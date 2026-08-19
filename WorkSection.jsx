@@ -14,11 +14,11 @@ export default function WorkSection() {
   };
 
   return (
-    <section id="work" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-50/70 via-white to-purple-50/40">
+    <section id="work" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-200 via-amber-100 to-purple-200">
       <div className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-16 h-96 w-96 rounded-full bg-purple-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-10rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-rose-200/60 blur-3xl" />
-      <div className="pointer-events-none absolute right-1/3 top-1/2 h-64 w-64 rounded-full bg-amber-100/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-[-8rem] top-16 h-96 w-96 rounded-full bg-purple-300/40 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-10rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-rose-300/50 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/3 top-1/2 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
       <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-20">
         <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={revealUp}>
           <SectionHeading

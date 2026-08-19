@@ -6,9 +6,9 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative scroll-mt-28 overflow-hidden border-y border-rose-100 bg-gradient-to-br from-purple-100/50 via-white to-rose-100/50">
-      <div className="pointer-events-none absolute right-[-10rem] top-[-6rem] h-[28rem] w-[28rem] rounded-full bg-purple-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-8rem] left-[-8rem] h-80 w-80 rounded-full bg-rose-200/50 blur-3xl" />
+    <section id="about" className="relative scroll-mt-28 overflow-hidden border-y border-rose-100 bg-gradient-to-br from-purple-200 via-rose-100 to-rose-300">
+      <div className="pointer-events-none absolute right-[-10rem] top-[-6rem] h-[28rem] w-[28rem] rounded-full bg-purple-300/40 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-8rem] left-[-8rem] h-80 w-80 rounded-full bg-rose-300/40 blur-3xl" />
       <motion.div
         className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[0.86fr_1.14fr] md:items-start md:py-20"
         initial="hidden"

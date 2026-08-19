@@ -6,9 +6,9 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ResumeSection() {
   return (
-    <section id="resume" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-50/60 via-[#fffaf6] to-purple-50/40">
+    <section id="resume" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-200 via-amber-100 to-purple-200">
       <div className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.4] [mask-image:radial-gradient(ellipse_55%_60%_at_50%_50%,black,transparent)]" />
-      <div className="pointer-events-none absolute right-[-8rem] bottom-[-8rem] h-80 w-80 rounded-full bg-purple-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute right-[-8rem] bottom-[-8rem] h-80 w-80 rounded-full bg-purple-300/40 blur-3xl" />
       <motion.div
         className="relative mx-auto max-w-6xl px-6 py-16 md:py-20"
         initial="hidden"

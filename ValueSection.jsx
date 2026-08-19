@@ -5,7 +5,7 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ValueSection() {
   return (
-    <section className="bg-gradient-to-br from-rose-50 to-purple-50 border-y border-rose-100">
+    <section className="bg-gradient-to-br from-rose-100 to-purple-100 border-y border-rose-100">
       <motion.div
         className="mx-auto max-w-6xl px-6 py-14 md:py-16"
         initial="hidden"
