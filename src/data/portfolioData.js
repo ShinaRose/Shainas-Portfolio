@@ -83,6 +83,7 @@ export const featuredWork = [
     label: "MSc research dissertation · Qualitative case study",
     role: "Researcher (Information Systems)",
     tools: ["Qualitative research", "Semi-structured interviews", "Thematic analysis", "Case study design"],
+    videoUrl: "https://drive.google.com/file/d/1XHLoVXVJh4OFVJXX_jj9CtBpqF5Qyufv/view?usp=drive_link",
     problem: "When a business unit spins off from its parent company, legal separation doesn't mean operational independence. Aptiv's 2026 spin-off of its EDS division into Versigent left IT teams still sharing systems, data and processes under a Transition Service Agreement, but little research explores how employees actually experience that day-to-day, rather than the deal itself.",
     approach: [
       "Designed a single embedded case study of the Aptiv-Versigent spin-off, conducting eight semi-structured interviews with IT team members across both organisations.",

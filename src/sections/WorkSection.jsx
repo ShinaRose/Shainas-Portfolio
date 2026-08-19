@@ -65,18 +65,36 @@ export default function WorkSection() {
                         ))}
                       </div>
 
-                      {project.liveUrl && (
-                        <motion.a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          whileHover={{ y: -3 }}
-                          whileTap={{ scale: 0.96 }}
-                          className="mt-6 inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-200 transition-colors hover:bg-slate-800"
-                          aria-label={`Open live app for ${project.title}`}
-                        >
-                          View Live App
-                        </motion.a>
+                      {(project.liveUrl || project.videoUrl) && (
+                        <div className="mt-6 flex flex-wrap gap-3">
+                          {project.liveUrl && (
+                            <motion.a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              whileHover={{ y: -3 }}
+                              whileTap={{ scale: 0.96 }}
+                              className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-200 transition-colors hover:bg-slate-800"
+                              aria-label={`Open live app for ${project.title}`}
+                            >
+                              View Live App
+                            </motion.a>
+                          )}
+
+                          {project.videoUrl && (
+                            <motion.a
+                              href={project.videoUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              whileHover={{ y: -3 }}
+                              whileTap={{ scale: 0.96 }}
+                              className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3 text-sm font-bold text-rose-800 transition-colors hover:bg-rose-100"
+                              aria-label={`Watch video for ${project.title}`}
+                            >
+                              Watch dissertation video
+                            </motion.a>
+                          )}
+                        </div>
                       )}
                     </div>
 
