@@ -65,6 +65,18 @@ export default function WorkSection() {
                         ))}
                       </div>
 
+                      {project.videoUrl && (
+                        <div className="mt-6 overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/60">
+                          <iframe
+                            src={project.videoUrl}
+                            title={`Video presentation for ${project.title}`}
+                            className="aspect-video w-full"
+                            allow="autoplay"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+
                       {(project.liveUrl || project.videoUrl) && (
                         <div className="mt-6 flex flex-wrap gap-3">
                           {project.liveUrl && (
@@ -91,7 +103,7 @@ export default function WorkSection() {
                               className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3 text-sm font-bold text-rose-800 transition-colors hover:bg-rose-100"
                               aria-label={`Watch video for ${project.title}`}
                             >
-                              Watch dissertation video
+                              Open video in Drive
                             </motion.a>
                           )}
                         </div>
