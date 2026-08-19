@@ -14,10 +14,11 @@ export default function WorkSection() {
   };
 
   return (
-    <section id="work" className="relative scroll-mt-28 overflow-hidden bg-white">
-      <div className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
-      <div className="pointer-events-none absolute left-[-6rem] top-24 h-72 w-72 rounded-full bg-purple-100/60 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-8rem] right-[-6rem] h-96 w-96 rounded-full bg-rose-100/70 blur-3xl" />
+    <section id="work" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-50/70 via-white to-purple-50/40">
+      <div className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-16 h-96 w-96 rounded-full bg-purple-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-10rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-rose-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/3 top-1/2 h-64 w-64 rounded-full bg-amber-100/40 blur-3xl" />
       <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-20">
         <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={revealUp}>
           <SectionHeading
@@ -40,7 +41,7 @@ export default function WorkSection() {
                 viewport={viewportOnce}
                 variants={revealUp}
               >
-                <Card className="rounded-[2rem] border-rose-100 bg-gradient-to-b from-white to-rose-50/30 shadow-lg shadow-rose-100/60 transition-shadow hover:shadow-xl hover:shadow-rose-200/50">
+                <Card className="rounded-[2rem] border-rose-100 bg-gradient-to-b from-white to-rose-50/60 shadow-lg shadow-rose-200/50 transition-shadow hover:shadow-xl hover:shadow-rose-300/40">
                   <CardContent className="grid gap-8 p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-9">
                     <div>
                       <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-100 to-purple-100 text-rose-800">

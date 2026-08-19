@@ -6,8 +6,9 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative scroll-mt-28 overflow-hidden border-y border-rose-100 bg-gradient-to-br from-white via-purple-50/30 to-rose-50/40">
-      <div className="pointer-events-none absolute right-[-10rem] top-[-6rem] h-96 w-96 rounded-full bg-purple-100/50 blur-3xl" />
+    <section id="about" className="relative scroll-mt-28 overflow-hidden border-y border-rose-100 bg-gradient-to-br from-purple-100/50 via-white to-rose-100/50">
+      <div className="pointer-events-none absolute right-[-10rem] top-[-6rem] h-[28rem] w-[28rem] rounded-full bg-purple-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-8rem] left-[-8rem] h-80 w-80 rounded-full bg-rose-200/50 blur-3xl" />
       <motion.div
         className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[0.86fr_1.14fr] md:items-start md:py-20"
         initial="hidden"
@@ -21,7 +22,7 @@ export default function AboutSection() {
           description="I recently completed my MSc in Information Systems for Business Performance at UCC, building skills across business decision support, systems analysis, databases, analytics, digital governance and IT project management. What I'm most drawn to is the practical side of it: taking messy data or a clunky process and making it clearer for the people who have to use it every day."
         />
 
-        <Card className="rounded-[2rem] border-rose-100 bg-[#fff8fb] shadow-sm shadow-rose-100/70">
+        <Card className="rounded-[2rem] border-rose-100 bg-gradient-to-br from-white to-purple-50/60 shadow-sm shadow-purple-100/70">
           <CardContent className="p-7">
             <h3 className="text-xl font-extrabold text-slate-950">Role fit</h3>
             <p className="mt-3 leading-7 text-slate-700">

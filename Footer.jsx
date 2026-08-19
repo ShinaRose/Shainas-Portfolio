@@ -2,7 +2,7 @@ import { emailUrl, linkedInUrl } from "../data/portfolioData.js";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-rose-100 bg-[#fff8fb] px-6 py-10">
+    <footer className="border-t border-rose-100 bg-transparent px-6 py-10">
       <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 md:flex-row md:justify-between">
         <p className="text-sm font-extrabold text-slate-700">Shina Rose Dsouza</p>
         <div className="flex flex-wrap items-center justify-center gap-5 text-sm font-medium text-slate-500">
