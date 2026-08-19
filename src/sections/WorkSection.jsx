@@ -159,7 +159,7 @@ export default function WorkSection() {
                     </div>
 
                     {project.videoUrl && (
-                      <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/60 lg:col-span-2">
+                      <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/60 sm:aspect-video lg:col-span-2">
                         <iframe
                           src={project.videoUrl}
                           title={`Video presentation for ${project.title}`}
