@@ -14,7 +14,7 @@ export default function WorkSection() {
   };
 
   return (
-    <section id="work" className="scroll-mt-28 bg-white">
+    <section id="work" className="section-pattern scroll-mt-28">
       <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={revealUp}>
           <SectionHeading

@@ -38,7 +38,7 @@ export const targetRoles = [
 ];
 
 export const employerSnapshot = [
-  { label: "Status", value: "Current MSc student" },
+  { label: "Status", value: "MSc graduate" },
   { label: "Focus", value: "Data, systems, cybersecurity & supply chain" },
   { label: "Location", value: "Cork, Ireland" },
   { label: "Availability", value: "Open to graduate and entry-level roles" },
@@ -107,7 +107,7 @@ export const featuredWork = [
       "Compared the user profile with career profiles using cosine similarity.",
       "Ranked career matches and displayed recommended skills, certifications and a 30-day action plan.",
     ],
-    outcome: "A working app that turns a student's skill ratings into real career suggestions — hands-on proof of the Python and data analysis work behind it, not just the theory.",
+    outcome: "A working app that turns a student's skill ratings into real career suggestions. It is hands-on proof of the Python and data analysis work behind it, not just the theory.",
     contribution: "Built the app structure, career matching logic, CSV data model and recommendation output.",
     icon: "chart",
   },
@@ -179,14 +179,14 @@ export const featuredWork = [
 export const educationHighlights = [
   {
     title: "MSc Information Systems for Business Performance",
-    meta: "University College Cork · Current student",
-    description: "Currently studying business performance, information systems, analytics, databases, digital governance and project management — all pointing toward the same goal: using technology to make things run better.",
+    meta: "University College Cork · MSc graduate",
+    description: "Completed studies in business performance, information systems, analytics, databases, digital governance and project management. All point toward the same goal: using technology to make things run better.",
     tags: ["Business Decision Support", "BI, Analytics & AI", "Systems Analysis", "Database Design", "IT Project Management"],
   },
   {
     title: "Retail Operations Experience",
     meta: "SuperValu · Customer-facing and operations exposure",
-    description: "Hands-on customer service and teamwork experience, plus a ground-level view of stock and day-to-day retail operations — the kind of exposure that feeds directly into my interest in supply chain visibility and process improvement.",
+    description: "Hands-on customer service and teamwork experience, plus a ground-level view of stock and day-to-day retail operations. This exposure feeds directly into my interest in supply chain visibility and process improvement.",
     tags: ["Customer service", "Teamwork", "Operations", "Stock awareness", "Process improvement"],
   },
 ];
@@ -206,7 +206,7 @@ export const valueProps = [
   {
     icon: "chart",
     title: "Data-aware",
-    description: "Good data should make a decision easier, not harder — that's the standard I hold my own work to.",
+    description: "Good data should make a decision easier, not harder. That's the standard I hold my own work to.",
   },
   {
     icon: "systems",
@@ -216,7 +216,7 @@ export const valueProps = [
   {
     icon: "shield",
     title: "Security-conscious",
-    description: "Privacy, access and governance aren't an afterthought for me — they're part of how I think about any system from the start.",
+    description: "Privacy, access and governance aren't an afterthought for me. They're part of how I think about any system from the start.",
   },
   {
     icon: "target",

@@ -6,7 +6,7 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="scroll-mt-28 border-t border-rose-100 bg-white">
+    <section id="contact" className="section-pattern scroll-mt-28 border-t border-rose-100">
       <motion.div
         className="mx-auto max-w-6xl px-6 py-16 md:py-20"
         initial="hidden"
@@ -19,7 +19,7 @@ export default function ContactSection() {
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-100">Contact</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Let's talk about graduate roles in data, systems or supply chain.</h2>
-              <p className="mt-4 max-w-2xl text-rose-50">I'm open to graduate, internship and entry-level roles across data, systems, IT, security and supply chain — get in touch if you think my background could be a fit for your team.</p>
+              <p className="mt-4 max-w-2xl text-rose-50">I'm open to graduate, internship and entry-level roles across data, systems, IT, security and supply chain. Get in touch if you think my background could be a fit for your team.</p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">

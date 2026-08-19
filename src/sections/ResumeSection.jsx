@@ -19,7 +19,7 @@ export default function ResumeSection() {
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Resume</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Get my resume in 30 seconds.</h2>
-              <p className="mt-4 max-w-2xl leading-8 text-slate-700">Click the button to open a pre-addressed email — just hit send and I'll reply with my full resume, references and any additional work samples you need.</p>
+              <p className="mt-4 max-w-2xl leading-8 text-slate-700">Click the button to open a pre-addressed email. Just hit send and I'll reply with my full resume, references and any additional work samples you need.</p>
               <div className="mt-5 flex flex-wrap gap-x-2 gap-y-2 text-sm font-semibold text-slate-700">
                 {courseFocus.map((item, index) => <span key={item}>{item}{index < courseFocus.length - 1 ? " ·" : ""}</span>)}
               </div>

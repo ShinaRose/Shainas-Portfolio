@@ -15,8 +15,8 @@ export default function ExperienceSection() {
       >
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-rose-200">Experience / Education</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">MSc study, with some real-world experience to go with it.</h2>
-          <p className="mt-5 leading-8 text-rose-50/85">Between my MSc and my time in retail, I've got a decent feel for both the systems side of a business and the people actually using them day to day.</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">MSc experience, with some real-world work to go with it.</h2>
+          <p className="mt-5 leading-8 text-rose-50/85">Between my MSc background and my time in retail, I've got a decent feel for both the systems side of a business and the people actually using them day to day.</p>
         </div>
 
         <div className="space-y-5">

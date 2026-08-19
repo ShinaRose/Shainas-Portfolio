@@ -27,7 +27,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            I'm Shina, an MSc Information Systems student at University College Cork, and I like problems that sit where data, systems and business decisions overlap. I'm currently looking for a graduate role — anywhere from data science and systems analysis to IT project work, cybersecurity or supply chain — where that mix is actually useful.
+            I'm Shina, an MSc Information Systems graduate from University College Cork, and I like problems that sit where data, systems and business decisions overlap. I'm currently looking for a graduate role in data science, systems analysis, IT project work, cybersecurity or supply chain, where that mix is actually useful.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -53,7 +53,7 @@ export default function HeroSection() {
               <div className="bg-gradient-to-br from-slate-950 via-rose-900 to-purple-900 p-8 text-white">
                 <ProfilePhoto />
                 <h2 className="mt-6 text-2xl font-bold">Shina Rose Dsouza</h2>
-                <p className="mt-2 text-rose-50">Current MSc Student · Data, Systems & Operations Focus</p>
+                <p className="mt-2 text-rose-50">MSc Graduate · Data, Systems & Operations Focus</p>
               </div>
 
               <div className="space-y-4 bg-white p-8 text-sm font-medium text-slate-700">

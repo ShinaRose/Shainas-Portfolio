@@ -17,7 +17,7 @@ export default function SkillsSection() {
       <SectionHeading
         eyebrow="Skills"
         title="Different labels, one throughline."
-        description="The categories vary — data, systems, security, operations — but it's really the same instinct in different directions: use data and structured thinking to make something clearer."
+        description="The categories vary across data, systems, security and operations, but it's really the same instinct in different directions: use data and structured thinking to make something clearer."
       />
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group) => (
