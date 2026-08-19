@@ -14,12 +14,8 @@ export default function WorkSection() {
   };
 
   return (
-    <section id="work" className="relative scroll-mt-28 overflow-hidden bg-gradient-to-b from-rose-200 via-amber-100 to-purple-200">
-      <div className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-16 h-96 w-96 rounded-full bg-purple-300/40 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-10rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-rose-300/50 blur-3xl" />
-      <div className="pointer-events-none absolute right-1/3 top-1/2 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
-      <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-20">
+    <section id="work" className="scroll-mt-28 bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={revealUp}>
           <SectionHeading
             eyebrow="Featured Work"
@@ -41,7 +37,7 @@ export default function WorkSection() {
                 viewport={viewportOnce}
                 variants={revealUp}
               >
-                <Card className="rounded-[2rem] border-rose-100 bg-gradient-to-b from-white to-rose-50/60 shadow-lg shadow-rose-200/50 transition-shadow hover:shadow-xl hover:shadow-rose-300/40">
+                <Card className="rounded-[2rem] border-rose-100 bg-white shadow-lg shadow-rose-100/60 transition-shadow hover:shadow-xl hover:shadow-rose-200/50">
                   <CardContent className="grid gap-8 p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-9">
                     <div>
                       <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-100 to-purple-100 text-rose-800">
@@ -69,18 +65,36 @@ export default function WorkSection() {
                         ))}
                       </div>
 
-                      {project.liveUrl && (
-                        <motion.a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          whileHover={{ y: -3 }}
-                          whileTap={{ scale: 0.96 }}
-                          className="mt-6 inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-200 transition-colors hover:bg-slate-800"
-                          aria-label={`Open live app for ${project.title}`}
-                        >
-                          View Live App
-                        </motion.a>
+                      {(project.liveUrl || project.videoUrl) && (
+                        <div className="mt-6 flex flex-wrap gap-3">
+                          {project.liveUrl && (
+                            <motion.a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              whileHover={{ y: -3 }}
+                              whileTap={{ scale: 0.96 }}
+                              className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-200 transition-colors hover:bg-slate-800"
+                              aria-label={`Open live app for ${project.title}`}
+                            >
+                              View Live App
+                            </motion.a>
+                          )}
+
+                          {project.videoUrl && (
+                            <motion.a
+                              href={project.videoUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              whileHover={{ y: -3 }}
+                              whileTap={{ scale: 0.96 }}
+                              className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3 text-sm font-bold text-rose-800 transition-colors hover:bg-rose-100"
+                              aria-label={`Watch video for ${project.title}`}
+                            >
+                              Watch dissertation video
+                            </motion.a>
+                          )}
+                        </div>
                       )}
                     </div>
 
@@ -143,22 +157,6 @@ export default function WorkSection() {
                         )}
                       </AnimatePresence>
                     </div>
-
-                    {project.videoUrl && (
-                      <div className="lg:col-span-2">
-                        <h4 className="mb-3 text-sm font-extrabold uppercase tracking-[0.14em] text-slate-500">Project Video</h4>
-                        <div className="relative w-full overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/50" style={{ paddingTop: "56.25%" }}>
-                          <iframe
-                            src={project.videoUrl}
-                            title={`${project.title}: project video`}
-                            className="absolute inset-0 h-full w-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            loading="lazy"
-                          />
-                        </div>
-                      </div>
-                    )}
                   </CardContent>
                 </Card>
               </motion.div>
