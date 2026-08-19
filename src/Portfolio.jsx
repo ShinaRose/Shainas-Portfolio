@@ -23,7 +23,7 @@ export function validatePortfolioLinks() {
 export default function Portfolio() {
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen scroll-smooth bg-[#fff8fb] text-slate-900 selection:bg-rose-200 selection:text-rose-950">
+      <div className="min-h-screen scroll-smooth bg-[#f4f8f9] text-slate-900 selection:bg-rose-200 selection:text-rose-950">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-rose-800 focus:shadow-xl">
           Skip to main content
         </a>

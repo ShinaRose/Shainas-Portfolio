@@ -6,7 +6,7 @@ import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ResumeSection() {
   return (
-    <section id="resume" className="scroll-mt-28 bg-[#fff8fb]">
+    <section id="resume" className="scroll-mt-28 bg-[#f4f8f9]">
       <motion.div
         className="mx-auto max-w-6xl px-6 py-16 md:py-20"
         initial="hidden"
