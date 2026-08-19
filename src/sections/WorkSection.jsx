@@ -65,19 +65,6 @@ export default function WorkSection() {
                         ))}
                       </div>
 
-                      {project.videoUrl && (
-                        <div className="mt-6 aspect-video w-full overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/60">
-                          <iframe
-                            src={project.videoUrl}
-                            title={`Video presentation for ${project.title}`}
-                            className="block h-full w-full border-0"
-                            allow="autoplay"
-                            allowFullScreen
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-
                       {(project.liveUrl || project.videoUrl) && (
                         <div className="mt-6 flex flex-wrap gap-3">
                           {project.liveUrl && (
@@ -170,6 +157,19 @@ export default function WorkSection() {
                         )}
                       </AnimatePresence>
                     </div>
+
+                    {project.videoUrl && (
+                      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-rose-100 bg-slate-950 shadow-lg shadow-rose-100/60 lg:col-span-2">
+                        <iframe
+                          src={project.videoUrl}
+                          title={`Video presentation for ${project.title}`}
+                          className="block h-full w-full border-0"
+                          allow="autoplay"
+                          allowFullScreen
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
