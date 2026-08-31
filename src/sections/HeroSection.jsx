@@ -22,7 +22,7 @@ export default function HeroSection() {
             Available now · Graduate &amp; internship roles · Cork, Ireland
           </div>
 
-          <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-slate-950 md:text-6xl">
+          <h1 className="max-w-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-rose-900 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-6xl">
             I make sense of data, systems and the businesses that run on them.
           </h1>
 

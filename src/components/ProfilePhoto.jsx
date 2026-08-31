@@ -6,7 +6,7 @@ export default function ProfilePhoto() {
 
   if (!profileImage || imgFailed) {
     return (
-      <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-3xl font-extrabold text-rose-900 shadow-xl">
+      <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-3xl font-extrabold text-rose-900 shadow-xl ring-4 ring-white/20">
         SD
       </div>
     );
@@ -16,7 +16,7 @@ export default function ProfilePhoto() {
     <img
       src={profileImage}
       alt="Portrait of Shina Rose Dsouza"
-      className="h-28 w-28 rounded-full border-4 border-white object-cover shadow-xl"
+      className="h-28 w-28 rounded-full border-4 border-white object-cover shadow-xl ring-4 ring-white/20"
       onError={() => setImgFailed(true)}
     />
   );
