@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import { educationHighlights } from "../data/portfolioData.js";
-import { revealUp, viewportOnce } from "../utils/animations.js";
+import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function ExperienceSection() {
   return (
@@ -19,20 +19,28 @@ export default function ExperienceSection() {
           <p className="mt-5 leading-8 text-rose-50/85">Between my MSc background and my time in retail, I've got a decent feel for both the systems side of a business and the people actually using them day to day.</p>
         </div>
 
-        <div className="space-y-5">
+        <motion.div
+          className="space-y-5"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerContainer}
+        >
           {educationHighlights.map((item) => (
-            <Card key={item.title} className="rounded-3xl border-white/10 bg-white/10 text-white shadow-xl backdrop-blur">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold">{item.title}</h3>
-                <p className="mt-2 text-rose-100">{item.meta}</p>
-                <p className="mt-4 text-sm leading-6 text-rose-50/80">{item.description}</p>
-                <div className="mt-5 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wide text-rose-100">
-                  {item.tags.map((tag, index) => <span key={tag}>{tag}{index < item.tags.length - 1 ? " ·" : ""}</span>)}
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div key={item.title} variants={staggerItem} whileHover={{ y: -3 }}>
+              <Card className="rounded-3xl border-white/10 bg-white/10 text-white shadow-xl backdrop-blur transition-colors hover:bg-white/[0.14]">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold">{item.title}</h3>
+                  <p className="mt-2 text-rose-100">{item.meta}</p>
+                  <p className="mt-4 text-sm leading-6 text-rose-50/80">{item.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wide text-rose-100">
+                    {item.tags.map((tag, index) => <span key={tag}>{tag}{index < item.tags.length - 1 ? " ·" : ""}</span>)}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );

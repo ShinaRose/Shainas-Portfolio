@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { targetRoles } from "../data/portfolioData.js";
-import { revealUp, viewportOnce } from "../utils/animations.js";
+import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function AboutSection() {
   return (
@@ -26,9 +26,24 @@ export default function AboutSection() {
             <p className="mt-3 leading-7 text-slate-700">
               I do my best work on teams that value curiosity and clear communication as much as technical skill, and that value continuous learning across data, systems, operations and business.
             </p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {targetRoles.map((role) => <div key={role} className="border-l-4 border-rose-300 bg-white px-4 py-3 text-sm font-extrabold text-slate-800">{role}</div>)}
-            </div>
+            <motion.div
+              className="mt-5 grid gap-3 sm:grid-cols-2"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={staggerContainer}
+            >
+              {targetRoles.map((role) => (
+                <motion.div
+                  key={role}
+                  variants={staggerItem}
+                  whileHover={{ y: -2 }}
+                  className="border-l-4 border-rose-300 bg-white px-4 py-3 text-sm font-extrabold text-slate-800 transition-colors hover:bg-rose-50"
+                >
+                  {role}
+                </motion.div>
+              ))}
+            </motion.div>
           </CardContent>
         </Card>
       </motion.div>

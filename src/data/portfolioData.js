@@ -38,7 +38,7 @@ export const targetRoles = [
 ];
 
 export const employerSnapshot = [
-  { label: "Status", value: "MSc graduate" },
+  { label: "Status", value: "MSc graduate, 2.1" },
   { label: "Focus", value: "Data, systems, cybersecurity & supply chain" },
   { label: "Location", value: "Cork, Ireland" },
   { label: "Availability", value: "Open to graduate and entry-level roles" },
@@ -112,6 +112,38 @@ export const featuredWork = [
     icon: "chart",
   },
   {
+    title: "Cloud & SaaS Spend Intelligence",
+    label: "FinOps analytics · Streamlit app",
+    role: "FinOps / Data Analyst",
+    tools: ["Python", "Streamlit", "Pandas", "Anomaly detection", "Cost forecasting"],
+    liveUrl: "https://finops-spend-intelligence.streamlit.app/",
+    problem: "Cloud and SaaS spend tends to grow unmanaged: idle resources, unused licences and untagged cost sit scattered across accounts, and a single monthly total doesn't tell anyone what to actually go and fix.",
+    approach: [
+      "Built a Streamlit app that turns raw cost data into a findings report instead of a single spend number, covering idle resources, licence reclamation and unit economics.",
+      "Added anomaly detection on daily cost lines, comparing observed cost against an expected baseline, so spend spikes get flagged instead of only showing up at month end.",
+      "Built a tag-inference model that predicts which team owns an untagged cloud resource from its usage pattern and evidence, so chargeback reporting doesn't just default to 'unknown'.",
+    ],
+    outcome: "A working FinOps tool spanning findings, forecasting, anomalies, idle resources, licence reclamation, unit economics, chargeback and tag inference, the kind of view a FinOps or platform team would use to decide what to cut first.",
+    contribution: "Designed the FinOps data model and built the app end to end: the anomaly detection, forecasting, idle-resource and licence-reclamation logic, unit economics, chargeback, and the tag-inference classifier.",
+    icon: "target",
+  },
+  {
+    title: "IT Service Reliability Analytics",
+    label: "SRE analytics · Streamlit app",
+    role: "Site Reliability / IT Operations Analyst",
+    tools: ["Python", "Streamlit", "SLOs & error budgets", "DORA metrics", "Scenario simulation"],
+    liveUrl: "https://it-service-reliability-analytics-npsqhdpz2sqycuy8wubcqy.streamlit.app/",
+    problem: "Engineering leadership usually sees reliability as a single uptime percentage, which hides how much error budget a team has actually burned, what incidents cost the business, and whether on-call load is heading toward burnout.",
+    approach: [
+      "Built SLO and error-budget tracking so teams can see how much budget they've spent, not just whether they hit an SLA target.",
+      "Connected reliability data to financial impact and on-call health, so downtime and on-call load show up as business and people costs, not just a dashboard.",
+      "Added a Real World DORA view and a What If scenario sandbox so teams can benchmark performance and test the effect of a process change before committing to it.",
+    ],
+    outcome: "A working reliability analytics tool spanning SLOs, financial impact, on-call health, structural analytics, DORA benchmarking and scenario simulation: the kind of tool an SRE or platform team would use to decide where to put reliability effort next.",
+    contribution: "Built the app end to end: the reporting pipeline behind each view, the SLO and error-budget model, and the what-if scenario sandbox.",
+    icon: "shield",
+  },
+  {
     title: "Student Services Data & Systems Improvement Concept",
     label: "Information systems case study",
     role: "Business Systems Analyst",
@@ -179,7 +211,7 @@ export const featuredWork = [
 export const educationHighlights = [
   {
     title: "MSc Information Systems for Business Performance",
-    meta: "University College Cork · MSc graduate",
+    meta: "University College Cork · MSc graduate, 2.1 (Second Class Honours, Upper Division)",
     description: "Completed studies in business performance, information systems, analytics, databases, digital governance and project management. All point toward the same goal: using technology to make things run better.",
     tags: ["Business Decision Support", "BI, Analytics & AI", "Systems Analysis", "Database Design", "IT Project Management"],
   },

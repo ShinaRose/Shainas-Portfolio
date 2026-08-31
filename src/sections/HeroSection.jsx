@@ -4,7 +4,7 @@ import Icon from "../components/Icon.jsx";
 import LinkButton from "../components/LinkButton.jsx";
 import ProfilePhoto from "../components/ProfilePhoto.jsx";
 import { actionLinks, employerSnapshot, resumeRequestUrl } from "../data/portfolioData.js";
-import { fadeUp } from "../utils/animations.js";
+import { fadeUp, staggerContainer, staggerItem } from "../utils/animations.js";
 
 export default function HeroSection() {
   return (
@@ -37,14 +37,25 @@ export default function HeroSection() {
             <LinkButton href={resumeRequestUrl} variant="light" icon="briefcase" external ariaLabel="Request Shina Rose Dsouza resume by email">Request Resume</LinkButton>
           </div>
 
-          <div className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.div
+            className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-4"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            transition={{ delayChildren: 0.5 }}
+          >
             {employerSnapshot.map((item) => (
-              <div key={item.label} className="border-l-4 border-rose-300 bg-white/70 py-3 pl-4 pr-3 backdrop-blur">
+              <motion.div
+                key={item.label}
+                variants={staggerItem}
+                whileHover={{ y: -3 }}
+                className="border-l-4 border-rose-300 bg-white/70 py-3 pl-4 pr-3 backdrop-blur transition-colors hover:bg-white"
+              >
                 <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{item.label}</p>
                 <p className="mt-1 text-sm font-extrabold text-slate-950">{item.value}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }}>
@@ -58,7 +69,7 @@ export default function HeroSection() {
 
               <div className="space-y-4 bg-white p-8 text-sm font-medium text-slate-700">
                 <div className="flex items-center gap-3 border-l-4 border-rose-200 bg-rose-50/60 px-4 py-3 text-rose-900"><Icon name="mapPin" /> Cork, Ireland</div>
-                <div className="flex items-center gap-3 border-l-4 border-purple-200 bg-purple-50/60 px-4 py-3 text-purple-900"><Icon name="graduation" /> MSc Information Systems for Business Performance, UCC</div>
+                <div className="flex items-center gap-3 border-l-4 border-purple-200 bg-purple-50/60 px-4 py-3 text-purple-900"><Icon name="graduation" /> MSc Information Systems for Business Performance, UCC (2.1)</div>
                 <div className="flex items-center gap-3 border-l-4 border-pink-200 bg-pink-50/60 px-4 py-3 text-pink-900"><Icon name="briefcase" /> Seeking data, systems, cybersecurity and supply chain roles</div>
                 <LinkButton href={actionLinks.linkedIn} variant="dark" icon="linkedin" external ariaLabel="Open Shina Rose Dsouza LinkedIn profile in a new tab">View LinkedIn Profile</LinkButton>
               </div>

@@ -4,7 +4,7 @@ import { Card, CardContent } from "../components/Card.jsx";
 import Icon from "../components/Icon.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { featuredWork } from "../data/portfolioData.js";
-import { revealUp, viewportOnce } from "../utils/animations.js";
+import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function WorkSection() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -136,16 +136,21 @@ export default function WorkSection() {
                             <div className="space-y-5 border-t border-rose-100 pt-5 mt-5">
                               <div>
                                 <h4 className="text-sm font-extrabold uppercase tracking-[0.14em] text-slate-500">Process</h4>
-                                <ul className="mt-3 space-y-2">
+                                <motion.ul
+                                  className="mt-3 space-y-2"
+                                  initial="hidden"
+                                  animate="visible"
+                                  variants={staggerContainer}
+                                >
                                   {project.approach.map((step) => (
-                                    <li key={step} className="flex gap-3 text-sm leading-6 text-slate-700">
+                                    <motion.li key={step} variants={staggerItem} className="flex gap-3 text-sm leading-6 text-slate-700">
                                       <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-800">
                                         <Icon name="check" className="h-3.5 w-3.5" />
                                       </span>
                                       <span>{step}</span>
-                                    </li>
+                                    </motion.li>
                                   ))}
-                                </ul>
+                                </motion.ul>
                               </div>
 
                               <div>
