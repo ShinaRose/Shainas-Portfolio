@@ -63,7 +63,7 @@ st.markdown("##### SUPPLY CHAIN ANALYTICS")
 st.title("📦 Supplier Performance Scorecard")
 st.markdown(
     "OTIF, lead-time consistency, defect rate and price variance rolled into a weighted "
-    "composite score with risk flags — run against the real "
+    "composite score with risk flags, run against the real "
     "[DataCo Smart Supply Chain dataset](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis) "
     "on Kaggle (180,519 order lines). **Adjust the weights below and watch the ranking and "
     "risk flags recompute live.**"
@@ -135,21 +135,21 @@ with col2:
 
 st.subheader("Findings worth reviewing")
 st.warning(
-    "**Shipping Mode predicts lateness far better than supplier does.** On-time rate barely "
-    "moves by department (37.0%–41.5%), but swings from 0% to 60.2% by shipping mode — First "
-    "Class is the single biggest lever in this dataset, not any one supplier."
+    "**Shipping mode predicts lateness far better than supplier does.** On-time rate barely "
+    "moves by department (37.0-41.5%), but it swings from 0% to 60.2% by shipping mode. "
+    "First Class is the single biggest lever in this dataset, not any one supplier."
 )
 st.warning(
-    "**Price variance reads 0.0% for every supplier** — not because pricing is perfectly "
-    "controlled, but because this dataset's product catalog has exactly one fixed price per "
-    "item, with no transactional drift to detect."
+    "**Price variance reads 0.0% for every supplier.** That's not because pricing is "
+    "perfectly controlled; it's because this dataset's product catalog has exactly one "
+    "fixed price per item, so there's no transactional drift to detect."
 )
 st.info(
     "**Risk flags are calibrated to this run's own score distribution** (top/bottom quartile, "
     "plus a defect-rate-outlier override) rather than a fixed external SLA, since the dataset's "
-    "real on-time ceiling (~41%) would fail a generic 80% target for every supplier at once. "
-    "Try dragging OTIF to 0 in the sidebar — Pet Shop stops being an outlier once its low volume "
-    "stops being penalized by lead-time variance alone."
+    "real on-time ceiling (around 41%) would fail a generic 80% target for every supplier at "
+    "once. Try dragging OTIF down to 0 in the sidebar: Pet Shop stops being an outlier once its "
+    "low volume stops being penalized by lead-time variance alone."
 )
 
 st.subheader("Full scorecard")

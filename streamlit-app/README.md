@@ -1,11 +1,11 @@
-# Supplier Performance Scorecard — Streamlit app
+# Supplier Performance Scorecard: Streamlit app
 
-Interactive version of the Supplier Performance Scorecard: drag the OTIF /
-defect / lead-time / price weight sliders and the ranking, composite scores
-and risk flags recompute live. Runs against `data/supplier_metrics.csv` — a
+Interactive version of the Supplier Performance Scorecard. Drag the OTIF,
+defect, lead-time and price weight sliders and the ranking, composite scores
+and risk flags recompute live. Runs against `data/supplier_metrics.csv`, a
 small (11-row) pre-aggregated snapshot of real metrics computed from the
 [DataCo Smart Supply Chain dataset](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis)
-(Kaggle, 180,519 order lines). The full 90MB source CSV isn't needed here —
+(Kaggle, 180,519 order lines). The full 90MB source CSV isn't needed here;
 see the separate `supplier-scorecard` project for the pipeline that produced
 this snapshot.
 

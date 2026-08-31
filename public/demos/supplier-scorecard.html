@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Supplier Performance Scorecard — Demo | Shina Rose Dsouza</title>
+<title>Supplier Performance Scorecard Demo | Shina Rose Dsouza</title>
 <link rel="stylesheet" href="shared.css" />
 <script src="chart.umd.min.js"></script>
 <style>
@@ -31,7 +31,7 @@
     <div class="hero">
       <p class="eyebrow">Supply Chain Analytics</p>
       <h1 class="demo-title">Supplier Performance Scorecard</h1>
-      <p class="demo-sub">A monthly-style supplier scorecard — OTIF, lead-time consistency, defect rate and price variance rolled into a weighted composite score with risk flags — run against the real <a href="https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis" target="_blank" rel="noopener">DataCo Smart Supply Chain dataset</a> on Kaggle (180,519 order lines), not illustrative sample data.</p>
+      <p class="demo-sub">A monthly-style supplier scorecard that rolls OTIF, lead-time consistency, defect rate and price variance into a weighted composite score with risk flags. Run against the real <a href="https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis" target="_blank" rel="noopener">DataCo Smart Supply Chain dataset</a> on Kaggle (180,519 order lines), not illustrative sample data.</p>
     </div>
 
     <div class="grid grid-4" style="margin-bottom: 18px;">
@@ -71,13 +71,13 @@
     <div class="card" style="margin-bottom: 18px;">
       <p class="section-title">Findings worth reviewing</p>
       <div class="note rose" style="margin-bottom: 10px;">
-        📉 <div><strong>Pet Shop, Technology and Fitness are flagged Critical</strong> — the lowest composite scores (53.8, 59.0, 60.9), driven by below-median on-time performance and elevated defect-proxy rates relative to the other 8 departments this run.</div>
+        📉 <div><strong>Pet Shop, Technology and Fitness are flagged Critical.</strong> They have the lowest composite scores (53.8, 59.0, 60.9), driven by below-median on-time performance and higher defect-proxy rates than the other 8 departments this run.</div>
       </div>
       <div class="note amber" style="margin-bottom: 10px;">
-        🚚 <div><strong>Shipping Mode predicts lateness far better than supplier does.</strong> On-time rate barely moves by department (37.0%–41.5%), but swings from 0% to 60.2% by shipping mode — First Class is the single biggest lever in this dataset, not any one supplier.</div>
+        🚚 <div><strong>Shipping mode predicts lateness far better than supplier does.</strong> On-time rate barely moves by department (37.0-41.5%), but it swings from 0% to 60.2% by shipping mode. First Class is the single biggest lever in this dataset, not any one supplier.</div>
       </div>
       <div class="note amber">
-        💲 <div><strong>Price variance reads 0.0% for every supplier</strong> — not because pricing is perfectly controlled, but because this dataset's product catalog has exactly one fixed price per item, with no transactional drift to detect.</div>
+        💲 <div><strong>Price variance reads 0.0% for every supplier.</strong> That's not because pricing is perfectly controlled; it's because this dataset's product catalog has exactly one fixed price per item, so there's no transactional drift to detect.</div>
       </div>
     </div>
 
@@ -96,7 +96,7 @@
     </div>
 
     <div class="disclaimer">
-      Built end to end with Python (pandas) as a reproducible pipeline, not a one-off notebook — raw order lines in, scored scorecard out. Because DataCo is a retail order export rather than a real procurement system, it has no supplier ID, QC/defect field or contract price table; the pipeline documents and uses explicit proxies for each (Department Name for supplier, cancelled/suspected-fraud rate for defects, each product's earliest observed price as a contract baseline) rather than treating a stand-in as if it were the real thing. Risk flags are calibrated to this run's own score distribution rather than a fixed external SLA, since the dataset's real on-time ceiling (~41%) would fail a generic 80% target for every supplier at once.
+      Built end to end with Python (pandas) as a reproducible pipeline, not a one-off notebook: raw order lines in, scored scorecard out. Because DataCo is a retail order export rather than a real procurement system, it has no supplier ID, QC/defect field or contract price table, so the pipeline documents and uses explicit proxies for each (Department Name for supplier, cancelled/suspected-fraud rate for defects, each product's earliest observed price as a contract baseline) instead of treating a stand-in as if it were the real thing. Risk flags are calibrated to this run's own score distribution rather than a fixed external SLA, since the dataset's real on-time ceiling (around 41%) would fail a generic 80% target for every supplier at once.
     </div>
   </div>
 
