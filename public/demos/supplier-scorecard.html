@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Supplier Performance Scorecard — Demo | Shina Rose Dsouza</title>
+<link rel="stylesheet" href="shared.css" />
+<script src="chart.umd.min.js"></script>
+<style>
+  .scorecard-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .scorecard-table th, .scorecard-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--rose-100); }
+  .scorecard-table th:first-child, .scorecard-table td:first-child { text-align: left; }
+  .scorecard-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate-500); font-weight: 800; }
+  .scorecard-table tbody tr:hover { background: var(--rose-50); }
+  .flag-pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 800; }
+  .flag-preferred { background: #ecfdf5; color: #065f46; }
+  .flag-watch { background: #fffbeb; color: #92400e; }
+  .flag-critical { background: var(--rose-50); color: var(--rose-800); }
+</style>
+</head>
+<body>
+  <header class="demo-header">
+    <div class="demo-header-inner">
+      <a class="back-link" href="../"> &larr; Back to portfolio</a>
+      <span class="demo-badge">Real dataset · 180,519 orders</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Supply Chain Analytics</p>
+      <h1 class="demo-title">Supplier Performance Scorecard</h1>
+      <p class="demo-sub">A monthly-style supplier scorecard — OTIF, lead-time consistency, defect rate and price variance rolled into a weighted composite score with risk flags — run against the real <a href="https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis" target="_blank" rel="noopener">DataCo Smart Supply Chain dataset</a> on Kaggle (180,519 order lines), not illustrative sample data.</p>
+    </div>
+
+    <div class="grid grid-4" style="margin-bottom: 18px;">
+      <div class="card">
+        <p class="kpi-label">OTIF (weighted)</p>
+        <p class="kpi-value">40.9%</p>
+        <span class="kpi-delta flat">company-wide baseline</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Defect Rate (proxy)</p>
+        <p class="kpi-value">4.3%</p>
+        <span class="kpi-delta flat">cancelled + suspected-fraud orders</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Lead Time vs. Schedule</p>
+        <p class="kpi-value">+0.6 days</p>
+        <span class="kpi-delta flat">±1.5 days std dev</span>
+      </div>
+      <div class="card">
+        <p class="kpi-label">Suppliers Flagged Critical</p>
+        <p class="kpi-value">3 of 11</p>
+        <span class="kpi-delta flat">5 Watch · 3 Preferred</span>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom: 18px;">
+      <div class="card">
+        <p class="section-title">Composite score by supplier</p>
+        <canvas id="compositeChart" height="420"></canvas>
+      </div>
+      <div class="card">
+        <p class="section-title">On-time rate by shipping mode (not by supplier)</p>
+        <canvas id="shippingModeChart" height="240"></canvas>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 18px;">
+      <p class="section-title">Findings worth reviewing</p>
+      <div class="note rose" style="margin-bottom: 10px;">
+        📉 <div><strong>Pet Shop, Technology and Fitness are flagged Critical</strong> — the lowest composite scores (53.8, 59.0, 60.9), driven by below-median on-time performance and elevated defect-proxy rates relative to the other 8 departments this run.</div>
+      </div>
+      <div class="note amber" style="margin-bottom: 10px;">
+        🚚 <div><strong>Shipping Mode predicts lateness far better than supplier does.</strong> On-time rate barely moves by department (37.0%–41.5%), but swings from 0% to 60.2% by shipping mode — First Class is the single biggest lever in this dataset, not any one supplier.</div>
+      </div>
+      <div class="note amber">
+        💲 <div><strong>Price variance reads 0.0% for every supplier</strong> — not because pricing is perfectly controlled, but because this dataset's product catalog has exactly one fixed price per item, with no transactional drift to detect.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Full scorecard</p>
+      <div style="overflow-x: auto;">
+        <table class="scorecard-table">
+          <thead>
+            <tr>
+              <th>Supplier</th><th>Order Lines</th><th>OTIF %</th><th>Lead Time Dev</th><th>Defect %</th><th>Price Var %</th><th>Composite</th><th>Flag</th>
+            </tr>
+          </thead>
+          <tbody id="scorecard-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Built end to end with Python (pandas) as a reproducible pipeline, not a one-off notebook — raw order lines in, scored scorecard out. Because DataCo is a retail order export rather than a real procurement system, it has no supplier ID, QC/defect field or contract price table; the pipeline documents and uses explicit proxies for each (Department Name for supplier, cancelled/suspected-fraud rate for defects, each product's earliest observed price as a contract baseline) rather than treating a stand-in as if it were the real thing. Risk flags are calibrated to this run's own score distribution rather than a fixed external SLA, since the dataset's real on-time ceiling (~41%) would fail a generic 80% target for every supplier at once.
+    </div>
+  </div>
+
+  <script>
+    const rows = [
+      { supplier: "Health and Beauty", lines: 362, otif: 39.8, leadDev: 0.5, defect: 4.4, priceVar: 0.0, composite: 74.8, flag: "Preferred" },
+      { supplier: "Book Shop", lines: 405, otif: 40.0, leadDev: 0.5, defect: 3.5, priceVar: 0.0, composite: 74.0, flag: "Preferred" },
+      { supplier: "Discs Shop", lines: 2026, otif: 41.5, leadDev: 0.5, defect: 4.1, priceVar: 0.0, composite: 66.4, flag: "Preferred" },
+      { supplier: "Footwear", lines: 14525, otif: 40.9, leadDev: 0.6, defect: 4.4, priceVar: 0.0, composite: 65.4, flag: "Watch" },
+      { supplier: "Fan Shop", lines: 66861, otif: 41.0, leadDev: 0.6, defect: 4.2, priceVar: 0.0, composite: 65.2, flag: "Watch" },
+      { supplier: "Golf", lines: 33220, otif: 40.8, leadDev: 0.6, defect: 4.4, priceVar: 0.0, composite: 64.1, flag: "Watch" },
+      { supplier: "Apparel", lines: 48998, otif: 40.9, leadDev: 0.6, defect: 4.3, priceVar: 0.0, composite: 63.5, flag: "Watch" },
+      { supplier: "Outdoors", lines: 9686, otif: 40.2, leadDev: 0.6, defect: 4.3, priceVar: 0.0, composite: 61.5, flag: "Watch" },
+      { supplier: "Fitness", lines: 2479, otif: 40.2, leadDev: 0.6, defect: 4.2, priceVar: 0.0, composite: 60.9, flag: "Critical" },
+      { supplier: "Technology", lines: 1465, otif: 40.3, leadDev: 0.6, defect: 4.7, priceVar: 0.0, composite: 59.0, flag: "Critical" },
+      { supplier: "Pet Shop", lines: 492, otif: 37.0, leadDev: 0.7, defect: 4.1, priceVar: 0.0, composite: 53.8, flag: "Critical" },
+    ];
+
+    const flagColor = { Preferred: "#10b981", Watch: "#f59e0b", Critical: "#be123c" };
+    const flagPillClass = { Preferred: "flag-preferred", Watch: "flag-watch", Critical: "flag-critical" };
+
+    document.getElementById("scorecard-body").innerHTML = rows.map(r => `
+      <tr>
+        <td>${r.supplier}</td>
+        <td>${r.lines.toLocaleString()}</td>
+        <td>${r.otif.toFixed(1)}%</td>
+        <td>+${r.leadDev.toFixed(1)}d</td>
+        <td>${r.defect.toFixed(1)}%</td>
+        <td>${r.priceVar.toFixed(1)}%</td>
+        <td><strong>${r.composite.toFixed(1)}</strong></td>
+        <td><span class="flag-pill ${flagPillClass[r.flag]}">${r.flag}</span></td>
+      </tr>
+    `).join("");
+
+    new Chart(document.getElementById("compositeChart"), {
+      type: "bar",
+      data: {
+        labels: rows.map(r => r.supplier),
+        datasets: [{
+          label: "Composite score",
+          data: rows.map(r => r.composite),
+          backgroundColor: rows.map(r => flagColor[r.flag]),
+          borderRadius: 6,
+        }],
+      },
+      options: {
+        indexAxis: "y",
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { min: 0, max: 100 },
+          y: { ticks: { autoSkip: false } },
+        },
+      },
+    });
+
+    new Chart(document.getElementById("shippingModeChart"), {
+      type: "bar",
+      data: {
+        labels: ["First Class", "Second Class", "Same Day", "Standard Class"],
+        datasets: [{
+          label: "On-time rate",
+          data: [0.0, 20.3, 52.2, 60.2],
+          backgroundColor: "#581c87",
+          borderRadius: 8,
+        }],
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { min: 0, max: 100, ticks: { callback: v => v + "%" } } },
+      },
+    });
+  </script>
+</body>
+</html>
