@@ -77,6 +77,13 @@ export const skillGroups = [
   },
 ];
 
+export const impactStats = [
+  { value: "3", label: "Live apps deployed", icon: "zap" },
+  { value: "180,519", label: "Order lines analysed from a real dataset", icon: "chart" },
+  { value: "11", label: "Supplier groups ranked", icon: "target" },
+  { value: "8", label: "Stakeholder interviews conducted", icon: "users" },
+];
+
 export const featuredWork = [
   {
     title: "Commingled to Independent: The Art of Uncoupling – An IS Perspective of How IT Teams Experience a Corporate Spin-Off: The Aptiv-Versigent Case",

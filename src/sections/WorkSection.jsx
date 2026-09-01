@@ -6,6 +6,19 @@ import SectionHeading from "../components/SectionHeading.jsx";
 import { featuredWork } from "../data/portfolioData.js";
 import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
+function getStatusBadge(project) {
+  if (project.liveUrl?.startsWith("http")) {
+    return { label: "Live App", dotClassName: "bg-emerald-500", className: "border-emerald-200 bg-emerald-50 text-emerald-800", pulse: true };
+  }
+  if (project.liveUrl) {
+    return { label: "Case Study Demo", dotClassName: "bg-purple-500", className: "border-purple-200 bg-purple-50 text-purple-800", pulse: false };
+  }
+  if (project.videoUrl) {
+    return { label: "Video Presentation", dotClassName: "bg-rose-500", className: "border-rose-200 bg-rose-50 text-rose-800", pulse: false };
+  }
+  return null;
+}
+
 export default function WorkSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -28,6 +41,7 @@ export default function WorkSection() {
           {featuredWork.map((project, index) => {
             const isOpen = openIndex === index;
             const detailId = `case-study-detail-${index}`;
+            const statusBadge = getStatusBadge(project);
 
             return (
               <motion.div
@@ -40,8 +54,20 @@ export default function WorkSection() {
                 <Card className="rounded-[2rem] border-rose-100 bg-white shadow-lg shadow-rose-100/60 transition-shadow hover:shadow-xl hover:shadow-rose-200/50">
                   <CardContent className="grid gap-8 p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-9">
                     <div>
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-100 to-purple-100 text-rose-800">
-                        <Icon name={project.icon} className="h-6 w-6" />
+                      <div className="mb-5 flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-100 to-purple-100 text-rose-800">
+                          <Icon name={project.icon} className="h-6 w-6" />
+                        </div>
+
+                        {statusBadge && (
+                          <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wide ${statusBadge.className}`}>
+                            <span className="relative flex h-2 w-2">
+                              {statusBadge.pulse && <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${statusBadge.dotClassName}`} />}
+                              <span className={`relative inline-flex h-2 w-2 rounded-full ${statusBadge.dotClassName}`} />
+                            </span>
+                            {statusBadge.label}
+                          </div>
+                        )}
                       </div>
 
                       <p className="text-sm font-bold uppercase tracking-[0.16em] text-rose-700">{project.label}</p>
