@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shinarose.github.io/Shainas-Portfolio/sitemap.xml
