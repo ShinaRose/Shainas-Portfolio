@@ -155,7 +155,7 @@ export const featuredWork = [
     label: "Information systems case study",
     role: "Business Systems Analyst",
     tools: ["Systems analysis", "Process mapping", "Data quality", "Requirements"],
-    liveUrl: "demos/student-services.html",
+    liveUrl: "https://shinarose-shainas-portfoli-streamlit-student-servicesapp-6uw2cm.streamlit.app/",
     problem: "Students need quick access to important support, course and service information, but digital journeys can become difficult when information is scattered, duplicated or not clearly connected to the right service process.",
     approach: [
       "Reviewed the student service journey and identified where information gaps or process confusion could slow users down.",
