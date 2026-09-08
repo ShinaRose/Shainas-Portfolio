@@ -6,6 +6,7 @@ import streamlit as st
 
 DATA_PATH = Path(__file__).parent / "data" / "supplier_metrics.csv"
 
+DEFAULT_WEIGHTS = {"otif": 40, "defect": 25, "lead_time": 20, "price": 15}
 FLAG_COLOR = {"Preferred": "#10b981", "Watch": "#f59e0b", "Critical": "#be123c"}
 SHIPPING_MODE_OTIF = {
     "First Class": 0.0,
@@ -19,7 +20,9 @@ st.set_page_config(page_title="Supplier Performance Scorecard", page_icon="📦"
 
 @st.cache_data
 def load_metrics() -> pd.DataFrame:
-    return pd.read_csv(DATA_PATH)
+    df = pd.read_csv(DATA_PATH)
+    df["Department Name"] = df["Department Name"].str.strip()
+    return df
 
 
 def min_max_invert(series: pd.Series) -> pd.Series:
@@ -71,11 +74,15 @@ st.markdown(
 
 st.sidebar.header("Composite score weights")
 st.sidebar.caption("Weights auto-normalize to 100%, so any ratio works.")
+if st.sidebar.button("Reset to defaults", use_container_width=True):
+    for key, value in DEFAULT_WEIGHTS.items():
+        st.session_state[f"weight_{key}"] = value
+
 weights = {
-    "otif": st.sidebar.slider("OTIF", 0, 100, 40),
-    "defect": st.sidebar.slider("Defect rate", 0, 100, 25),
-    "lead_time": st.sidebar.slider("Lead-time consistency", 0, 100, 20),
-    "price": st.sidebar.slider("Price variance", 0, 100, 15),
+    "otif": st.sidebar.slider("OTIF", 0, 100, DEFAULT_WEIGHTS["otif"], key="weight_otif"),
+    "defect": st.sidebar.slider("Defect rate", 0, 100, DEFAULT_WEIGHTS["defect"], key="weight_defect"),
+    "lead_time": st.sidebar.slider("Lead-time consistency", 0, 100, DEFAULT_WEIGHTS["lead_time"], key="weight_lead_time"),
+    "price": st.sidebar.slider("Price variance", 0, 100, DEFAULT_WEIGHTS["price"], key="weight_price"),
 }
 total_weight = sum(weights.values()) or 1
 st.sidebar.caption(
@@ -85,6 +92,11 @@ st.sidebar.caption(
 )
 
 scored = score(metrics, weights)
+weights_are_default = weights == DEFAULT_WEIGHTS
+if not weights_are_default:
+    default_flags = score(metrics, DEFAULT_WEIGHTS).set_index("Department Name")["risk_flag"]
+    scored["default_risk_flag"] = scored["Department Name"].map(default_flags)
+    flipped = scored[scored["risk_flag"] != scored["default_risk_flag"]]
 
 k1, k2, k3, k4 = st.columns(4)
 total_lines = scored["order_lines"].sum()
@@ -94,6 +106,16 @@ k1.metric("OTIF (weighted)", f"{w_otif:.1f}%", help="Company-wide baseline acros
 k2.metric("Defect rate (proxy)", f"{w_defect:.1f}%", help="Cancelled + suspected-fraud order share")
 k3.metric("Critical suppliers", f"{(scored['risk_flag'] == 'Critical').sum()} of {len(scored)}")
 k4.metric("Preferred suppliers", f"{(scored['risk_flag'] == 'Preferred').sum()} of {len(scored)}")
+
+if not weights_are_default:
+    if len(flipped) > 0:
+        moves = ", ".join(
+            f"**{row['Department Name']}** ({row['default_risk_flag']} → {row['risk_flag']})"
+            for _, row in flipped.iterrows()
+        )
+        st.info(f"**{len(flipped)} supplier(s) changed risk flag** from the default weighting: {moves}.")
+    else:
+        st.caption("No suppliers changed risk flag at these weights, only their ranking shifted.")
 
 col1, col2 = st.columns(2)
 
@@ -133,6 +155,26 @@ with col2:
     )
     st.altair_chart(mode_chart, use_container_width=True)
 
+st.subheader("Risk in two dimensions: OTIF vs. lead-time consistency")
+st.caption("Bubble size is order volume, so it's easy to see whether a supplier's risk is a genuine performance issue or just a small-volume outlier.")
+scatter = (
+    alt.Chart(scored)
+    .mark_circle(opacity=0.85)
+    .encode(
+        x=alt.X("otif_rate_pct:Q", title="OTIF %", scale=alt.Scale(zero=False)),
+        y=alt.Y("lead_time_mean_deviation_days:Q", title="Lead-time mean deviation (days)"),
+        size=alt.Size("order_lines:Q", title="Order lines", legend=alt.Legend(format="~s")),
+        color=alt.Color(
+            "risk_flag:N",
+            scale=alt.Scale(domain=list(FLAG_COLOR.keys()), range=list(FLAG_COLOR.values())),
+            legend=alt.Legend(title="Risk flag"),
+        ),
+        tooltip=["Department Name", "otif_rate_pct", "lead_time_mean_deviation_days", "order_lines", "risk_flag"],
+    )
+    .properties(height=340)
+)
+st.altair_chart(scatter, use_container_width=True)
+
 st.subheader("Findings worth reviewing")
 st.warning(
     "**Shipping mode predicts lateness far better than supplier does.** On-time rate barely "
@@ -148,11 +190,14 @@ st.info(
     "**Risk flags are calibrated to this run's own score distribution** (top/bottom quartile, "
     "plus a defect-rate-outlier override) rather than a fixed external SLA, since the dataset's "
     "real on-time ceiling (around 41%) would fail a generic 80% target for every supplier at "
-    "once. Try dragging OTIF down to 0 in the sidebar: Pet Shop stops being an outlier once its "
-    "low volume stops being penalized by lead-time variance alone."
+    "once. Try pushing Defect rate to 100 and the other three weights to 0 in the sidebar: Pet "
+    "Shop moves from Critical to Preferred, its defect rate is actually the second-lowest in the "
+    "dataset, it was only Critical because its low order volume made its lead-time variance look "
+    "worse than it is."
 )
 
-st.subheader("Full scorecard")
+header_col, download_col = st.columns([4, 1])
+header_col.subheader("Full scorecard")
 display_cols = {
     "Department Name": "Supplier",
     "order_lines": "Order Lines",
@@ -164,6 +209,13 @@ display_cols = {
     "risk_flag": "Risk Flag",
 }
 table = scored[list(display_cols.keys())].rename(columns=display_cols)
+download_col.download_button(
+    "⬇ CSV",
+    data=table.to_csv(index=False).encode("utf-8"),
+    file_name="supplier_scorecard.csv",
+    mime="text/csv",
+    use_container_width=True,
+)
 
 
 def flag_style(val: str) -> str:
