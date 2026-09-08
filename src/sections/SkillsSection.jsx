@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { skillGroups } from "../data/portfolioData.js";
-import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
+import { cardHover, revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function SkillsSection() {
   return (
@@ -27,7 +27,7 @@ export default function SkillsSection() {
         variants={staggerContainer}
       >
         {skillGroups.map((group) => (
-          <motion.div key={group.title} variants={staggerItem} whileHover={{ y: -4 }}>
+          <motion.div key={group.title} variants={staggerItem} {...cardHover}>
             <Card className="h-full rounded-[1.75rem] border-rose-100 bg-white shadow-sm shadow-rose-100/70 transition-shadow hover:shadow-lg hover:shadow-rose-200/60">
               <CardContent className="p-6">
                 <h3 className="text-lg font-extrabold text-slate-950">{group.title}</h3>

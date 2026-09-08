@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { actionLinks, navLinks } from "../data/portfolioData.js";
 import { scrollToSection } from "../utils/scrollToSection.js";
@@ -7,10 +8,22 @@ const sectionIds = navLinks.map((link) => link.href.replace("#", ""));
 
 export default function Header() {
   const activeId = useActiveSection(sectionIds);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rose-100 bg-white/90 shadow-sm backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4" aria-label="Main navigation">
+    <header
+      className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-all duration-300 ${
+        scrolled ? "border-rose-200 bg-white/95 shadow-md shadow-rose-100/60" : "border-rose-100 bg-white/80 shadow-sm shadow-transparent"
+      }`}
+    >
+      <nav className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-3" : "py-4"}`} aria-label="Main navigation">
         <a href={actionLinks.home} onClick={(e) => scrollToSection(e, actionLinks.home)} className="text-base font-extrabold tracking-tight text-slate-950 focus:outline-none focus:ring-4 focus:ring-rose-200 sm:text-lg">
           Shina Rose Dsouza
         </a>

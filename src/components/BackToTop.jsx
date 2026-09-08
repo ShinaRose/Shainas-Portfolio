@@ -21,9 +21,9 @@ export default function BackToTop() {
           initial={{ opacity: 0, scale: 0.7, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.7, y: 12 }}
-          whileHover={{ y: -3 }}
+          whileHover={{ y: -3, scale: 1.06 }}
           whileTap={{ scale: 0.92 }}
-          transition={{ duration: 0.2 }}
+          transition={{ type: "spring", stiffness: 400, damping: 22 }}
           aria-label="Back to top"
           className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-slate-950 text-white shadow-xl shadow-slate-300/70 transition-colors hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-200"
         >

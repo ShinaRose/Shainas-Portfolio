@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Icon from "../components/Icon.jsx";
 import { softSkills, valueProps } from "../data/portfolioData.js";
-import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
+import { cardHover, revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function ValueSection() {
   return (
@@ -28,7 +28,7 @@ export default function ValueSection() {
             <motion.div
               key={vp.title}
               variants={staggerItem}
-              whileHover={{ y: -4 }}
+              {...cardHover}
               className="rounded-2xl bg-white border border-rose-100 p-6 shadow-sm shadow-rose-100/60 transition-shadow hover:shadow-lg hover:shadow-rose-200/60"
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-rose-100 to-purple-100 text-rose-800"><Icon name={vp.icon} className="h-5 w-5" /></div>

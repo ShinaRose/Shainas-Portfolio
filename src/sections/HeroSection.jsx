@@ -1,54 +1,84 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import Icon from "../components/Icon.jsx";
 import LinkButton from "../components/LinkButton.jsx";
 import ProfilePhoto from "../components/ProfilePhoto.jsx";
 import { actionLinks, employerSnapshot, resumeRequestUrl } from "../data/portfolioData.js";
-import { fadeUp, staggerContainer, staggerItem } from "../utils/animations.js";
+import { EASE_PREMIUM, cardHover, staggerContainer, staggerItem } from "../utils/animations.js";
+
+const headlineWords = "I make sense of data, systems and the businesses that run on them.".split(" ");
 
 export default function HeroSection() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const blobOneY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const blobTwoY = useTransform(scrollYProgress, [0, 1], [0, -70]);
+
   return (
-    <section id="home" className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffe4ef,transparent_34%),linear-gradient(135deg,#fff8fb_0%,#ffffff_42%,#f3efff_100%)]">
-      <div className="absolute right-[-7rem] top-8 h-80 w-80 rounded-full bg-rose-200/40 blur-3xl" />
-      <div className="absolute bottom-[-10rem] left-[-7rem] h-96 w-96 rounded-full bg-purple-200/40 blur-3xl" />
+    <section ref={sectionRef} id="home" className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffe4ef,transparent_34%),linear-gradient(135deg,#fff8fb_0%,#ffffff_42%,#f3efff_100%)]">
+      <motion.div
+        style={{ y: blobOneY }}
+        animate={{ x: [0, 34, -14, 0], scale: [1, 1.1, 0.95, 1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-[-7rem] top-8 h-80 w-80 rounded-full bg-rose-200/40 blur-3xl"
+      />
+      <motion.div
+        style={{ y: blobTwoY }}
+        animate={{ x: [0, -28, 16, 0], scale: [1, 0.93, 1.08, 1] }}
+        transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[-10rem] left-[-7rem] h-96 w-96 rounded-full bg-purple-200/40 blur-3xl"
+      />
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.14fr_0.86fr] md:items-center md:py-24 lg:py-28">
-        <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ duration: 0.55 }}>
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-800 shadow-sm ring-1 ring-emerald-100">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} transition={{ staggerChildren: 0.12 }}>
+          <motion.div variants={staggerItem} className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-800 shadow-sm ring-1 ring-emerald-100">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
             </span>
             Available now · Graduate &amp; internship roles · Cork, Ireland
-          </div>
+          </motion.div>
 
-          <h1 className="max-w-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-rose-900 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-6xl">
-            I make sense of data, systems and the businesses that run on them.
+          <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight md:text-6xl">
+            {headlineWords.map((word, i) => (
+              <motion.span
+                key={word + i}
+                className="inline-block bg-gradient-to-br from-slate-950 via-slate-900 to-rose-900 bg-clip-text text-transparent"
+                style={{ transformPerspective: 800 }}
+                initial={{ opacity: 0, y: 26, rotateX: -55 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ duration: 0.65, delay: 0.35 + i * 0.05, ease: EASE_PREMIUM }}
+              >
+                {word}
+                {i < headlineWords.length - 1 ? " " : ""}
+              </motion.span>
+            ))}
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
+          <motion.p variants={staggerItem} className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
             I'm Shina, an MSc Information Systems for Business Performance graduate from University College Cork, and I like problems that sit where data, systems and business decisions overlap. I'm currently looking for a graduate role in data science, systems analysis, IT project work, cybersecurity or supply chain, where that mix is actually useful.
-          </p>
+          </motion.p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <motion.div variants={staggerItem} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <LinkButton href={actionLinks.work} ariaLabel="View featured work and portfolio projects">View Work</LinkButton>
             <LinkButton href={actionLinks.linkedIn} variant="dark" icon="linkedin" external ariaLabel="Open Shina Rose Dsouza LinkedIn profile in a new tab">LinkedIn</LinkButton>
             <LinkButton href={actionLinks.email} variant="light" icon="mail" external ariaLabel="Open Gmail compose to email Shina Rose Dsouza in a new tab">Contact Me</LinkButton>
             <LinkButton href={resumeRequestUrl} variant="light" icon="briefcase" external ariaLabel="Request Shina Rose Dsouza resume by email">Request Resume</LinkButton>
-          </div>
+          </motion.div>
 
           <motion.div
             className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-4"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            transition={{ delayChildren: 0.5 }}
+            transition={{ delayChildren: 0.6 }}
           >
             {employerSnapshot.map((item) => (
               <motion.div
                 key={item.label}
                 variants={staggerItem}
-                whileHover={{ y: -3 }}
+                {...cardHover}
                 className="border-l-4 border-rose-300 bg-white/70 py-3 pl-4 pr-3 backdrop-blur transition-colors hover:bg-white"
               >
                 <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{item.label}</p>
@@ -58,7 +88,7 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }}>
+        <motion.div initial={{ opacity: 0, scale: 0.94, y: 16 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15, ease: EASE_PREMIUM }}>
           <Card className="overflow-hidden rounded-[2rem] border-rose-100 bg-white shadow-2xl shadow-rose-100/80">
             <CardContent className="p-0">
               <div className="bg-gradient-to-br from-slate-950 via-rose-900 to-purple-900 p-8 text-white">

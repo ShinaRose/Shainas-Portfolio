@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { profileImage } from "../data/portfolioData.js";
 
 export default function ProfilePhoto() {
@@ -13,9 +14,11 @@ export default function ProfilePhoto() {
   }
 
   return (
-    <img
+    <motion.img
       src={profileImage}
       alt="Portrait of Shina Rose Dsouza"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="h-28 w-28 rounded-full border-4 border-white object-cover shadow-xl ring-4 ring-white/20"
       onError={() => setImgFailed(true)}
     />

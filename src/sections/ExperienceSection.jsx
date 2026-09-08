@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import { educationHighlights } from "../data/portfolioData.js";
-import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
+import { cardHover, revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 export default function ExperienceSection() {
   return (
@@ -27,7 +27,7 @@ export default function ExperienceSection() {
           variants={staggerContainer}
         >
           {educationHighlights.map((item) => (
-            <motion.div key={item.title} variants={staggerItem} whileHover={{ y: -3 }}>
+            <motion.div key={item.title} variants={staggerItem} {...cardHover}>
               <Card className="rounded-3xl border-white/10 bg-white/10 text-white shadow-xl backdrop-blur transition-colors hover:bg-white/[0.14]">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold">{item.title}</h3>

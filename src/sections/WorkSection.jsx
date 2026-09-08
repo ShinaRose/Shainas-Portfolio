@@ -4,7 +4,7 @@ import { Card, CardContent } from "../components/Card.jsx";
 import Icon from "../components/Icon.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { featuredWork } from "../data/portfolioData.js";
-import { revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
+import { EASE_PREMIUM, revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
 function getStatusBadge(project) {
   if (project.liveUrl?.startsWith("http")) {
@@ -51,7 +51,7 @@ export default function WorkSection() {
                 viewport={viewportOnce}
                 variants={revealUp}
               >
-                <Card className="rounded-[2rem] border-rose-100 bg-white shadow-lg shadow-rose-100/60 transition-shadow hover:shadow-xl hover:shadow-rose-200/50">
+                <Card className="rounded-[2rem] border-rose-100 bg-white shadow-lg shadow-rose-100/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-200/50">
                   <CardContent className="grid gap-8 p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-9">
                     <div>
                       <div className="mb-5 flex items-center justify-between">
@@ -100,6 +100,7 @@ export default function WorkSection() {
                               rel="noreferrer"
                               whileHover={{ y: -3 }}
                               whileTap={{ scale: 0.96 }}
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
                               className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-200 transition-colors hover:bg-slate-800"
                               aria-label={`Open live app for ${project.title}`}
                             >
@@ -114,6 +115,7 @@ export default function WorkSection() {
                               rel="noreferrer"
                               whileHover={{ y: -3 }}
                               whileTap={{ scale: 0.96 }}
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
                               className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3 text-sm font-bold text-rose-800 transition-colors hover:bg-rose-100"
                               aria-label={`Watch video for ${project.title}`}
                             >
@@ -146,7 +148,7 @@ export default function WorkSection() {
                         className="mt-5 inline-flex items-center gap-1.5 rounded-lg text-sm font-bold text-rose-700 transition-colors hover:text-rose-900 focus:outline-none focus:ring-4 focus:ring-rose-200"
                       >
                         {isOpen ? "Show less" : "Read the full case study"}
-                        <Icon name="chevronDown" className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                        <Icon name="chevronDown" className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
                       </motion.button>
 
                       <AnimatePresence initial={false}>
@@ -156,7 +158,7 @@ export default function WorkSection() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            transition={{ duration: 0.4, ease: EASE_PREMIUM }}
                             className="overflow-hidden"
                           >
                             <div className="space-y-5 border-t border-rose-100 pt-5 mt-5">
