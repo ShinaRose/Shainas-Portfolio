@@ -171,7 +171,7 @@ export const featuredWork = [
     label: "Data analytics project",
     role: "Data Analyst",
     tools: ["Excel", "SQL", "Dashboard design", "KPIs", "Business decision support"],
-    liveUrl: "demos/business-dashboard.html",
+    liveUrl: "https://shinarose-shainas-portfo-streamlit-business-dashboardapp-efsepv.streamlit.app/",
     problem: "Business users need data presented in a way that supports quick understanding rather than overwhelming them with raw information.",
     approach: [
       "Selected the most useful business metrics for a dashboard view.",
