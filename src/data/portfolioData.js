@@ -187,7 +187,7 @@ export const featuredWork = [
     label: "Systems analysis case study",
     role: "Business Systems Analyst",
     tools: ["Systems analysis", "Process mapping", "Requirements", "Documentation"],
-    liveUrl: "demos/process-improvement.html",
+    liveUrl: "https://shainas-portfolio-thssg4vnnbcaygv5kt9fhb.streamlit.app/",
     problem: "A business process can become inefficient when operational steps, system requirements and data ownership are not clearly connected.",
     approach: [
       "Mapped the current-state process and identified pain points.",
