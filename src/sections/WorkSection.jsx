@@ -6,6 +6,16 @@ import SectionHeading from "../components/SectionHeading.jsx";
 import { featuredWork } from "../data/portfolioData.js";
 import { EASE_PREMIUM, revealUp, staggerContainer, staggerItem, viewportOnce } from "../utils/animations.js";
 
+// Streamlit Community Cloud apps sleep after inactivity and take ~15-30s to
+// wake on a cold visit. Firing an opaque, fire-and-forget ping as soon as the
+// card scrolls into view gives the app a head start before the visitor
+// actually clicks through, so the wait is shorter by the time they do.
+function pingLiveApp(project) {
+  if (project.liveUrl?.startsWith("http")) {
+    fetch(project.liveUrl, { mode: "no-cors" }).catch(() => {});
+  }
+}
+
 function getStatusBadge(project) {
   if (project.liveUrl?.startsWith("http")) {
     return { label: "Live App", dotClassName: "bg-emerald-500", className: "border-emerald-200 bg-emerald-50 text-emerald-800", pulse: true };
@@ -50,6 +60,7 @@ export default function WorkSection() {
                 whileInView="visible"
                 viewport={viewportOnce}
                 variants={revealUp}
+                onViewportEnter={() => pingLiveApp(project)}
               >
                 <Card className="rounded-[2rem] border-rose-100 bg-white shadow-lg shadow-rose-100/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-200/50">
                   <CardContent className="grid gap-8 p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-9">
@@ -123,6 +134,10 @@ export default function WorkSection() {
                             </motion.a>
                           )}
                         </div>
+                      )}
+
+                      {project.liveUrl?.startsWith("http") && (
+                        <p className="mt-3 text-xs text-slate-400">Free-tier hosting: first open can take ~20s to wake up.</p>
                       )}
                     </div>
 
