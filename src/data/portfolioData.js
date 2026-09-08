@@ -203,7 +203,7 @@ export const featuredWork = [
     label: "Supply chain analytics · Real dataset",
     role: "Supply Chain Analyst / Data Analyst",
     tools: ["Python", "Pandas", "OTIF & KPI design", "Weighted scoring models", "Risk flagging"],
-    liveUrl: "demos/supplier-scorecard.html",
+    liveUrl: "https://shainas-portfolio-gr2fdup2rmfdsppgtkllah.streamlit.app/",
     problem: "Procurement teams need a repeatable way to see which suppliers are actually underperforming on delivery, consistency, quality and cost, before it becomes a service or cost problem, not just a gut feeling from the last late shipment.",
     approach: [
       "Built a Python (pandas) pipeline that scores every supplier on OTIF, lead-time mean and variance against schedule, defect rate and price variance, using the real DataCo Smart Supply Chain dataset from Kaggle (180,519 order lines), not a mocked-up sample.",
