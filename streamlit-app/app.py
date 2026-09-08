@@ -32,6 +32,7 @@ def min_max_invert(series: pd.Series) -> pd.Series:
     return 100.0 * (1.0 - (series - lo) / (hi - lo))
 
 
+@st.cache_data
 def score(agg: pd.DataFrame, weights: dict[str, float]) -> pd.DataFrame:
     df = agg.copy()
     df["otif_score"] = df["otif_rate_pct"]

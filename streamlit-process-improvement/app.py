@@ -30,19 +30,30 @@ st.markdown(
     "company's data.**"
 )
 
-target_days = st.slider(
+input_col, volume_col = st.columns(2)
+target_days = input_col.slider(
     "Target cycle time after the fix (days)",
     min_value=1,
     max_value=CURRENT_CYCLE_DAYS,
     value=3,
     help="Drag to see how the improvement headline changes for a different target.",
 )
-faster_pct = round((CURRENT_CYCLE_DAYS - target_days) / CURRENT_CYCLE_DAYS * 100)
+annual_volume = volume_col.number_input(
+    "Requisitions processed per year",
+    min_value=1,
+    value=200,
+    step=10,
+    help="Used only to translate the per-cycle time saved into an annual figure below.",
+)
+days_saved_per_cycle = CURRENT_CYCLE_DAYS - target_days
+faster_pct = round(days_saved_per_cycle / CURRENT_CYCLE_DAYS * 100)
+annual_days_saved = days_saved_per_cycle * annual_volume
 
-k1, k2, k3 = st.columns(3)
-k1.metric("Avg. cycle time", f"{target_days} days", f"-{CURRENT_CYCLE_DAYS - target_days} days vs. {CURRENT_CYCLE_DAYS} today", delta_color="inverse")
+k1, k2, k3, k4 = st.columns(4)
+k1.metric("Avg. cycle time", f"{target_days} days", f"-{days_saved_per_cycle} days vs. {CURRENT_CYCLE_DAYS} today", delta_color="inverse")
 k2.metric("Data re-entry points", "0", "-3, fully eliminated", delta_color="inverse")
-k3.metric("Approval visibility", "Real-time", "from none today")
+k3.metric("Approval visibility", "Real-time", "from none today", delta_color="off")
+k4.metric("Cycle-days saved per year", f"{annual_days_saved:,.0f}", f"at {annual_volume:,.0f} requisitions/year", delta_color="off")
 st.caption(f"That target would make the process **{faster_pct}% faster** than today's {CURRENT_CYCLE_DAYS}-day average.")
 
 st.divider()

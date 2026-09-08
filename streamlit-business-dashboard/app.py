@@ -55,44 +55,63 @@ k2.metric("Orders", "3,412", "+6% vs Q2")
 k3.metric("Avg. order value", "€83.40", "+5% vs Q2")
 k4.metric("Fulfilment rate", "96.1%", "-1.4pts vs Q2")
 
-col1, col2 = st.columns(2)
+if not selected:
+    st.info("Select at least one category above to see the charts.")
+else:
+    col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("Revenue trend, last 6 months")
-    trend_df = monthly_filtered.reset_index()
-    trend_df.columns = ["Month", "Revenue"]
-    trend_df["Month"] = pd.Categorical(trend_df["Month"], categories=MONTHS, ordered=True)
-    line = (
-        alt.Chart(trend_df)
-        .mark_line(point=alt.OverlayMarkDef(color="#be123c"), color="#be123c")
-        .encode(x=alt.X("Month:N", sort=MONTHS), y=alt.Y("Revenue:Q", axis=alt.Axis(format="~s")), tooltip=["Month", "Revenue"])
-        .properties(height=320)
-    )
-    st.altair_chart(line, use_container_width=True)
-
-with col2:
-    st.subheader("Revenue by category")
-    totals = filtered.groupby("Category")["Revenue"].sum().reset_index()
-    donut = (
-        alt.Chart(totals)
-        .mark_arc(innerRadius=80)
-        .encode(
-            theta="Revenue:Q",
-            color=alt.Color("Category:N", scale=alt.Scale(domain=list(CATEGORY_COLOR.keys()), range=list(CATEGORY_COLOR.values()))),
-            tooltip=["Category", "Revenue"],
+    with col1:
+        st.subheader("Revenue trend, last 6 months")
+        trend_df = monthly_filtered.reset_index()
+        trend_df.columns = ["Month", "Revenue"]
+        trend_df["Month"] = pd.Categorical(trend_df["Month"], categories=MONTHS, ordered=True)
+        line = (
+            alt.Chart(trend_df)
+            .mark_line(point=alt.OverlayMarkDef(color="#be123c"), color="#be123c")
+            .encode(x=alt.X("Month:N", sort=MONTHS), y=alt.Y("Revenue:Q", axis=alt.Axis(format="~s")), tooltip=["Month", "Revenue"])
+            .properties(height=320)
         )
-        .properties(height=320)
-    )
-    st.altair_chart(donut, use_container_width=True)
+        st.altair_chart(line, use_container_width=True)
+
+    with col2:
+        st.subheader("Revenue by category")
+        totals = filtered.groupby("Category")["Revenue"].sum().reset_index()
+        donut = (
+            alt.Chart(totals)
+            .mark_arc(innerRadius=80)
+            .encode(
+                theta="Revenue:Q",
+                color=alt.Color("Category:N", scale=alt.Scale(domain=selected, range=[CATEGORY_COLOR[c] for c in selected])),
+                tooltip=["Category", "Revenue"],
+            )
+            .properties(height=320)
+        )
+        st.altair_chart(donut, use_container_width=True)
 
 st.subheader("What this is telling us")
 n1, n2, n3 = st.columns(3)
-n1.success("Revenue is up for a third straight month, led by the Services category.")
+
+first_vs_last = filtered.pivot(index="Category", columns="Month", values="Revenue").reindex(columns=MONTHS)
+if not first_vs_last.empty and first_vs_last[MONTHS[0]].sum() > 0:
+    growth = ((first_vs_last[MONTHS[-1]] / first_vs_last[MONTHS[0]]) - 1) * 100
+    fastest_growing = growth.idxmax()
+    n1.success(f"**{fastest_growing}** grew fastest of the selected categories, up {growth[fastest_growing]:.0f}% from {MONTHS[0]} to {MONTHS[-1]}.")
+else:
+    n1.success("Select at least one category to see which one is growing fastest.")
+
 n2.warning("Fulfilment rate slipped slightly, worth a closer look at the Hardware category's backlog.")
 n3.info("Average order value is climbing faster than order volume, a pricing or bundling change worth investigating.")
 
-st.caption(
+header_col, download_col = st.columns([4, 1])
+header_col.caption(
     "Built to demonstrate dashboard structure, KPI selection and how findings turn into a "
     "plain-language summary. The underlying numbers are illustrative sample data, not a real "
     "company's figures."
+)
+download_col.download_button(
+    "⬇ CSV",
+    data=filtered.to_csv(index=False).encode("utf-8"),
+    file_name="revenue_by_category.csv",
+    mime="text/csv",
+    use_container_width=True,
 )

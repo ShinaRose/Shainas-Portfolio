@@ -14,34 +14,43 @@ SERVICES = {
     "Fees & Payments": {
         "owner": "Finance Office",
         "channel": "Student Portal → Finance",
-        "turnaround": "1-2 business days",
+        "turnaround_days": (1, 2),
         "note": "Includes payment plans, refunds and fee status queries.",
     },
     "Housing": {
         "owner": "Accommodation Office",
         "channel": "Online form + drop-in hours",
-        "turnaround": "2-3 business days",
+        "turnaround_days": (2, 3),
         "note": "On-campus housing, off-campus listings, and contract issues.",
     },
     "Wellbeing & Support": {
         "owner": "Student Wellbeing Team",
         "channel": "Booking link (same-day slots available)",
-        "turnaround": "Same day for urgent requests",
+        "turnaround_days": (0, 0),
         "note": "Counselling, disability support and general wellbeing check-ins.",
     },
     "Course & Registration": {
         "owner": "Academic Registry",
         "channel": "Registry email queue",
-        "turnaround": "3-5 business days",
+        "turnaround_days": (3, 5),
         "note": "Module changes, transcripts, and registration holds.",
     },
     "IT Help": {
         "owner": "IT Service Desk",
         "channel": "Helpdesk ticket or live chat",
-        "turnaround": "Same day for account issues",
+        "turnaround_days": (0, 0),
         "note": "Login problems, Wi-Fi access, and software licences.",
     },
 }
+
+
+def format_turnaround(days_range: tuple[int, int]) -> str:
+    lo, hi = days_range
+    if hi == 0:
+        return "Same day"
+    if lo == hi:
+        return f"{lo} business day" + ("s" if lo != 1 else "")
+    return f"{lo}-{hi} business days"
 
 st.set_page_config(page_title="Student Services Concept", page_icon="🎓", layout="wide")
 
@@ -66,6 +75,26 @@ st.markdown(
 st.caption("Same information, seven different places, no clear map of which one is current or who actually owns the answer.")
 
 st.divider()
+
+avg_days = sum((lo + hi) / 2 for lo, hi in (s["turnaround_days"] for s in SERVICES.values())) / len(SERVICES)
+fastest = min(SERVICES.values(), key=lambda s: sum(s["turnaround_days"]))
+slowest = max(SERVICES.values(), key=lambda s: sum(s["turnaround_days"]))
+
+m1, m2, m3 = st.columns(3)
+m1.metric(
+    "Places to check before",
+    len(SCATTERED_SOURCES),
+    f"-{len(SCATTERED_SOURCES) - len(SERVICES)}, down to {len(SERVICES)} categories",
+    delta_color="inverse",
+)
+m2.metric("Fastest turnaround", format_turnaround(fastest["turnaround_days"]))
+m3.metric(
+    "Average turnaround",
+    f"{avg_days:.1f} business days",
+    f"slowest: {format_turnaround(slowest['turnaround_days'])}",
+    delta_color="off",
+)
+
 st.subheader("After: pick what you need, get the right service")
 
 col1, col2 = st.columns([1, 2])
@@ -84,7 +113,7 @@ with col2:
         r2.markdown(f"**{service['channel']}**")
         r1, r2 = st.columns(2)
         r1.markdown("Typical turnaround")
-        r2.markdown(f"**{service['turnaround']}**")
+        r2.markdown(f"**{format_turnaround(service['turnaround_days'])}**")
         st.caption(service["note"])
 
 st.caption(
