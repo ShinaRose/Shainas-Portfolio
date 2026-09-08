@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
 import Icon from "../components/Icon.jsx";
 import LinkButton from "../components/LinkButton.jsx";
 import ProfilePhoto from "../components/ProfilePhoto.jsx";
+import RoleCycler from "../components/RoleCycler.jsx";
 import { actionLinks, employerSnapshot, resumeRequestUrl } from "../data/portfolioData.js";
 import { EASE_PREMIUM, cardHover, staggerContainer, staggerItem } from "../utils/animations.js";
 
@@ -15,8 +16,23 @@ export default function HeroSection() {
   const blobOneY = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const blobTwoY = useTransform(scrollYProgress, [0, 1], [0, -70]);
 
+  const mouseX = useMotionValue(50);
+  const mouseY = useMotionValue(30);
+  const spotlightBackground = useMotionTemplate`radial-gradient(520px circle at ${mouseX}% ${mouseY}%, rgba(225,29,72,0.12), transparent 55%)`;
+  const handlePointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    mouseX.set(((event.clientX - rect.left) / rect.width) * 100);
+    mouseY.set(((event.clientY - rect.top) / rect.height) * 100);
+  };
+
   return (
-    <section ref={sectionRef} id="home" className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffe4ef,transparent_34%),linear-gradient(135deg,#fff8fb_0%,#ffffff_42%,#f3efff_100%)]">
+    <section
+      ref={sectionRef}
+      id="home"
+      onMouseMove={handlePointerMove}
+      className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(circle_at_top_left,#ffe4ef,transparent_34%),linear-gradient(135deg,#fff8fb_0%,#ffffff_42%,#f3efff_100%)]"
+    >
+      <motion.div aria-hidden="true" style={{ background: spotlightBackground }} className="pointer-events-none absolute inset-0" />
       <motion.div
         style={{ y: blobOneY }}
         animate={{ x: [0, 34, -14, 0], scale: [1, 1.1, 0.95, 1] }}
@@ -57,7 +73,7 @@ export default function HeroSection() {
           </h1>
 
           <motion.p variants={staggerItem} className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            I'm Shina, an MSc Information Systems for Business Performance graduate from University College Cork, and I like problems that sit where data, systems and business decisions overlap. I'm currently looking for a graduate role in data science, systems analysis, IT project work, cybersecurity or supply chain, where that mix is actually useful.
+            I'm Shina, an MSc Information Systems for Business Performance graduate from University College Cork, and I like problems that sit where data, systems and business decisions overlap. Right now, I'm looking for a graduate role — <RoleCycler /> — where that mix is actually useful.
           </motion.p>
 
           <motion.div variants={staggerItem} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -88,7 +104,18 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.94, y: 16 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15, ease: EASE_PREMIUM }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: EASE_PREMIUM }}
+          className="relative"
+        >
+          <motion.div
+            aria-hidden="true"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+            className="absolute -inset-3 -z-10 rounded-[2.5rem] bg-[conic-gradient(from_0deg,#fb7185,#c084fc,#fbcfe8,#fb7185)] opacity-50 blur-2xl"
+          />
           <Card className="overflow-hidden rounded-[2rem] border-rose-100 bg-white shadow-2xl shadow-rose-100/80">
             <CardContent className="p-0">
               <div className="bg-gradient-to-br from-slate-950 via-rose-900 to-purple-900 p-8 text-white">
