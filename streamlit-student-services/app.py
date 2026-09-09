@@ -116,6 +116,40 @@ with col2:
         r2.markdown(f"**{format_turnaround(service['turnaround_days'])}**")
         st.caption(service["note"])
 
+st.divider()
+st.subheader("Advanced: turning the fix into a business case")
+st.caption(
+    "A UX improvement is easier to justify with a number attached. Set your own assumptions "
+    "below, these are planning inputs, not measured results, and see the estimated staff and "
+    "student time saved per month."
+)
+
+calc_col1, calc_col2 = st.columns(2)
+requests_per_month = calc_col1.slider("Support requests per month", min_value=50, max_value=3000, value=600, step=50)
+minutes_saved_per_request = calc_col2.slider(
+    "Minutes saved per request",
+    min_value=1,
+    max_value=30,
+    value=8,
+    help="Time no longer spent searching scattered pages or being bounced between offices before reaching the right one.",
+)
+hours_saved_per_month = requests_per_month * minutes_saved_per_request / 60
+staff_hours_per_fte_month = 150  # a rough full-time-equivalent capacity baseline for the FTE comparison below
+
+c1, c2 = st.columns(2)
+c1.metric(
+    "Estimated hours saved per month",
+    f"{hours_saved_per_month:,.0f}",
+    f"at {requests_per_month:,} requests/month, {minutes_saved_per_request} min saved each",
+    delta_color="off",
+)
+c2.metric(
+    "Equivalent to",
+    f"{hours_saved_per_month / staff_hours_per_fte_month:.1f} FTE/month",
+    f"assuming a {staff_hours_per_fte_month}-hour service month",
+    delta_color="off",
+)
+
 st.caption(
     "Built to demonstrate the information architecture behind the concept, service names and "
     "contact details are illustrative, not a real university's actual services."

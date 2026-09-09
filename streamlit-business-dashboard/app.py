@@ -1,9 +1,12 @@
 import altair as alt
+import numpy as np
 import pandas as pd
 import streamlit as st
 
 MONTHS = ["Apr", "May", "Jun", "Jul", "Aug", "Sep"]
 MONTHLY_REVENUE = [198000, 210000, 221000, 236000, 254000, 284600]
+NEXT_MONTH_LABEL = "Oct (projected)"
+MONTHS_WITH_PROJECTION = MONTHS + [NEXT_MONTH_LABEL]
 
 # Illustrative category mix that drifts toward Services over the period,
 # consistent with the "led by the Services category" narrative below.
@@ -61,17 +64,32 @@ else:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("Revenue trend, last 6 months")
+        st.subheader("Revenue trend, with next month projected")
         trend_df = monthly_filtered.reset_index()
         trend_df.columns = ["Month", "Revenue"]
-        trend_df["Month"] = pd.Categorical(trend_df["Month"], categories=MONTHS, ordered=True)
-        line = (
+        trend_df["Month"] = pd.Categorical(trend_df["Month"], categories=MONTHS_WITH_PROJECTION, ordered=True)
+
+        slope, intercept = np.polyfit(np.arange(len(MONTHS)), monthly_filtered.values, 1)
+        next_month_revenue = slope * len(MONTHS) + intercept
+        projection_df = pd.DataFrame(
+            {
+                "Month": pd.Categorical([MONTHS[-1], NEXT_MONTH_LABEL], categories=MONTHS_WITH_PROJECTION, ordered=True),
+                "Revenue": [monthly_filtered.iloc[-1], next_month_revenue],
+            }
+        )
+
+        actual_line = (
             alt.Chart(trend_df)
             .mark_line(point=alt.OverlayMarkDef(color="#be123c"), color="#be123c")
-            .encode(x=alt.X("Month:N", sort=MONTHS), y=alt.Y("Revenue:Q", axis=alt.Axis(format="~s")), tooltip=["Month", "Revenue"])
-            .properties(height=320)
+            .encode(x=alt.X("Month:N", sort=MONTHS_WITH_PROJECTION), y=alt.Y("Revenue:Q", axis=alt.Axis(format="~s")), tooltip=["Month", "Revenue"])
         )
-        st.altair_chart(line, use_container_width=True)
+        projection_line = (
+            alt.Chart(projection_df)
+            .mark_line(strokeDash=[5, 4], point=alt.OverlayMarkDef(color="#94a3b8", filled=False), color="#94a3b8")
+            .encode(x=alt.X("Month:N", sort=MONTHS_WITH_PROJECTION), y="Revenue:Q", tooltip=["Month", alt.Tooltip("Revenue:Q", format=",.0f")])
+        )
+        st.altair_chart((actual_line + projection_line).properties(height=320), width="stretch")
+        st.caption(f"Projected via a simple linear trend on the {len(MONTHS)} months shown: **€{next_month_revenue:,.0f}**, a quick extrapolation, not a rigorous forecast.")
 
     with col2:
         st.subheader("Revenue by category")
@@ -86,7 +104,7 @@ else:
             )
             .properties(height=320)
         )
-        st.altair_chart(donut, use_container_width=True)
+        st.altair_chart(donut, width="stretch")
 
 st.subheader("What this is telling us")
 n1, n2, n3 = st.columns(3)
@@ -113,5 +131,5 @@ download_col.download_button(
     data=filtered.to_csv(index=False).encode("utf-8"),
     file_name="revenue_by_category.csv",
     mime="text/csv",
-    use_container_width=True,
+    width="stretch",
 )

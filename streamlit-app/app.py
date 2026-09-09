@@ -75,7 +75,7 @@ st.markdown(
 
 st.sidebar.header("Composite score weights")
 st.sidebar.caption("Weights auto-normalize to 100%, so any ratio works.")
-if st.sidebar.button("Reset to defaults", use_container_width=True):
+if st.sidebar.button("Reset to defaults", width="stretch"):
     for key, value in DEFAULT_WEIGHTS.items():
         st.session_state[f"weight_{key}"] = value
 
@@ -137,7 +137,7 @@ with col1:
         )
         .properties(height=380)
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 with col2:
     st.subheader("On-time rate by shipping mode (not by supplier)")
@@ -154,7 +154,7 @@ with col2:
         )
         .properties(height=380)
     )
-    st.altair_chart(mode_chart, use_container_width=True)
+    st.altair_chart(mode_chart, width="stretch")
 
 st.subheader("Risk in two dimensions: OTIF vs. lead-time consistency")
 st.caption("Bubble size is order volume, so it's easy to see whether a supplier's risk is a genuine performance issue or just a small-volume outlier.")
@@ -174,7 +174,34 @@ scatter = (
     )
     .properties(height=340)
 )
-st.altair_chart(scatter, use_container_width=True)
+st.altair_chart(scatter, width="stretch")
+
+st.subheader("Supplier profile vs. dataset average")
+st.caption("Each bar is the same 0-100 normalized score used in the composite, so a supplier's shape shows exactly where it beats or lags the average, at the current weights.")
+score_cols = {"otif_score": "OTIF", "defect_score": "Defect", "lead_time_score": "Lead-time", "price_score": "Price"}
+supplier_choice = st.selectbox("Compare a supplier against the dataset average", scored["Department Name"])
+profile_row = scored.loc[scored["Department Name"] == supplier_choice].iloc[0]
+avg_scores = scored[list(score_cols.keys())].mean()
+profile_df = pd.DataFrame(
+    {
+        "Dimension": list(score_cols.values()) * 2,
+        "Score": [profile_row[c] for c in score_cols] + [avg_scores[c] for c in score_cols],
+        "Series": [supplier_choice] * len(score_cols) + ["Dataset average"] * len(score_cols),
+    }
+)
+profile_chart = (
+    alt.Chart(profile_df)
+    .mark_bar()
+    .encode(
+        x=alt.X("Score:Q", scale=alt.Scale(domain=[0, 100])),
+        y=alt.Y("Dimension:N", sort=list(score_cols.values()), title=None),
+        yOffset=alt.YOffset("Series:N", sort=[supplier_choice, "Dataset average"]),
+        color=alt.Color("Series:N", scale=alt.Scale(domain=[supplier_choice, "Dataset average"], range=["#be123c", "#94a3b8"])),
+        tooltip=["Series", "Dimension", alt.Tooltip("Score:Q", format=".1f")],
+    )
+    .properties(height=220)
+)
+st.altair_chart(profile_chart, width="stretch")
 
 st.subheader("Findings worth reviewing")
 st.warning(
@@ -215,7 +242,7 @@ download_col.download_button(
     data=table.to_csv(index=False).encode("utf-8"),
     file_name="supplier_scorecard.csv",
     mime="text/csv",
-    use_container_width=True,
+    width="stretch",
 )
 
 
@@ -228,7 +255,7 @@ st.dataframe(
     table.style.map(flag_style, subset=["Risk Flag"]).format(
         {"OTIF %": "{:.1f}", "Lead Time Mean Dev (days)": "{:+.1f}", "Defect Rate %": "{:.1f}", "Price Variance %": "{:.1f}", "Composite Score": "{:.1f}"}
     ),
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
 )
 

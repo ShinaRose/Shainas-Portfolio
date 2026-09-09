@@ -1,3 +1,6 @@
+import altair as alt
+import numpy as np
+import pandas as pd
 import streamlit as st
 
 CURRENT_STEPS = [
@@ -15,6 +18,12 @@ FUTURE_STEPS = [
     ("Budget checked in the same flow", "Real-time budget visibility"),
     ("PO auto-generated on approval", "Fewer errors, much faster turnaround"),
 ]
+
+# (best case, most likely, worst case) days per step, for the Monte Carlo
+# simulation further down. "Most likely" values sum to the same 9 / 3 day
+# headline figures used above.
+CURRENT_STEP_ESTIMATES = [(0.5, 1.5, 4.0), (0.5, 2.0, 5.0), (0.25, 1.0, 2.0), (0.5, 1.5, 3.0), (1.0, 3.0, 5.0)]
+FUTURE_STEP_ESTIMATES = [(0.1, 0.25, 0.5), (0.25, 0.5, 1.0), (0.05, 0.1, 0.25), (0.1, 0.25, 0.5), (0.5, 1.9, 3.0)]
 
 CURRENT_CYCLE_DAYS = 9
 
@@ -79,6 +88,57 @@ def render_flow(label: str, steps: list[tuple[str, str]], accent: str, note_kind
 render_flow("Current state", CURRENT_STEPS, "#be123c", "pain")
 st.write("")
 render_flow("Future state", FUTURE_STEPS, "#059669", "good")
+
+st.divider()
+st.subheader("Advanced: schedule-risk simulation")
+st.caption(
+    "A single '9 days' or '3 days' estimate hides how much each step can vary. Each step here is "
+    "instead modeled as a triangular distribution (best case, most likely, worst case) and "
+    "simulated 5,000 times, a lightweight Monte Carlo approach to schedule risk rather than one "
+    "point estimate."
+)
+
+
+@st.cache_data
+def simulate_cycle_time(estimates: tuple[tuple[float, float, float], ...], n: int = 5000, seed: int = 42) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    total = np.zeros(n)
+    for lo, mode, hi in estimates:
+        total += rng.triangular(lo, mode, hi, n)
+    return total
+
+
+current_sim = simulate_cycle_time(tuple(CURRENT_STEP_ESTIMATES))
+future_sim = simulate_cycle_time(tuple(FUTURE_STEP_ESTIMATES))
+
+p1, p2, p3, p4 = st.columns(4)
+p1.metric("Current: 50% chance of finishing within", f"{np.percentile(current_sim, 50):.1f} days")
+p2.metric("Current: 90% chance of finishing within", f"{np.percentile(current_sim, 90):.1f} days")
+p3.metric("Future: 50% chance of finishing within", f"{np.percentile(future_sim, 50):.1f} days", delta_color="off")
+p4.metric("Future: 90% chance of finishing within", f"{np.percentile(future_sim, 90):.1f} days", delta_color="off")
+
+sim_df = pd.DataFrame(
+    {
+        "Cycle time (days)": np.concatenate([current_sim, future_sim]),
+        "Scenario": ["Current"] * len(current_sim) + ["Future"] * len(future_sim),
+    }
+)
+hist = (
+    alt.Chart(sim_df)
+    .mark_bar(opacity=0.7)
+    .encode(
+        x=alt.X("Cycle time (days):Q", bin=alt.Bin(maxbins=40)),
+        y=alt.Y("count():Q", stack=None, title="Simulated runs"),
+        color=alt.Color("Scenario:N", scale=alt.Scale(domain=["Current", "Future"], range=["#be123c", "#059669"])),
+    )
+    .properties(height=280)
+)
+st.altair_chart(hist, width="stretch")
+st.caption(
+    "Even in the future state, there's a real tail: the 90th-percentile case still runs longer "
+    "than the '3 days' headline, worth planning for rather than promising a number that only "
+    "holds on a good day."
+)
 
 st.caption(
     "Built to demonstrate the mapping method and the kind of before/after case this analysis "
