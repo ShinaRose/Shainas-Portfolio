@@ -3,8 +3,9 @@ import profileImg from "../assets/profile.jpg";
 export const profileImage = profileImg;
 
 export const linkedInUrl = "https://www.linkedin.com/in/shina-rose-dsouza-443a63287/";
-export const emailUrl = "https://mail.google.com/mail/?view=cm&to=shainarose1622@gmail.com&su=Portfolio%20Enquiry%20-%20Graduate%20Opportunity";
-export const resumeRequestUrl = "https://mail.google.com/mail/?view=cm&to=shainarose1622@gmail.com&su=Resume%20Request%20-%20Shina%20Rose%20Dsouza";
+export const email = "shainarose1622@gmail.com";
+export const emailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=Portfolio%20Enquiry%20-%20Graduate%20Opportunity`;
+export const resumeRequestUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=Resume%20Request%20-%20Shina%20Rose%20Dsouza`;
 
 export const actionLinks = {
   home: "#home",
@@ -154,15 +155,15 @@ export const featuredWork = [
     title: "Student Services Data & Systems Improvement Concept",
     label: "Information systems case study",
     role: "Business Systems Analyst",
-    tools: ["Systems analysis", "Process mapping", "Data quality", "Requirements"],
+    tools: ["Systems analysis", "Process mapping", "Python", "Streamlit", "Requirements"],
     liveUrl: "https://shinarose-shainas-portfoli-streamlit-student-servicesapp-6uw2cm.streamlit.app/",
     problem: "Students need quick access to important support, course and service information, but digital journeys can become difficult when information is scattered, duplicated or not clearly connected to the right service process.",
     approach: [
-      "Reviewed the student service journey and identified where information gaps or process confusion could slow users down.",
-      "Grouped content by service need and mapped how information should flow between students, support teams and systems.",
-      "Proposed a clearer structure focused on data quality, service visibility and faster decision-making.",
+      "Mapped the scattered 'before' state (seven separate pages and offices) against a single category-based 'after' structure, then built it as a working Streamlit app rather than a static wireframe.",
+      "Structured each service category around who owns it, how to reach them and typical turnaround, so the interactive picker returns a real answer instead of another link to click through.",
+      "Added a business-case calculator that converts the UX fix into estimated staff hours saved per month, so an information-architecture improvement comes with a number a stakeholder can act on.",
     ],
-    outcome: "A clearer concept for how student services could work, built around systems thinking, information organisation and practical business analysis.",
+    outcome: "A working Streamlit app, not just a diagram, that demonstrates the proposed service structure end to end, plus a quantified staff-time-saved estimate to support the case for building it for real.",
     contribution: "Owned the process review, information structure, requirements thinking and improvement rationale.",
     icon: "systems",
   },
@@ -170,15 +171,15 @@ export const featuredWork = [
     title: "Business Decision Support Dashboard",
     label: "Data analytics project",
     role: "Data Analyst",
-    tools: ["Excel", "SQL", "Dashboard design", "KPIs", "Business decision support"],
+    tools: ["Python", "Streamlit", "Pandas", "Altair", "Dashboard design"],
     liveUrl: "https://shinarose-shainas-portfo-streamlit-business-dashboardapp-efsepv.streamlit.app/",
     problem: "Business users need data presented in a way that supports quick understanding rather than overwhelming them with raw information.",
     approach: [
-      "Selected the most useful business metrics for a dashboard view.",
-      "Structured information into sections so insights were easier to compare.",
-      "Focused on readable labels, useful summaries and practical performance indicators.",
+      "Built the dashboard as an interactive Streamlit app (Python, Pandas, Altair), filterable by product category with every KPI and chart recomputing live, not just the headline revenue number.",
+      "Modelled Orders and Fulfilment rate as revenue-weighted blends across categories instead of hardcoding them, so the figures stay internally consistent no matter which categories are selected.",
+      "Added a one-month revenue forecast via linear regression, rendered as a dashed projection on the trend chart, so the dashboard shows what the trend implies next, not only what already happened.",
     ],
-    outcome: "A dashboard-style project showing how data can be transformed into useful insight for non-technical business users.",
+    outcome: "A working dashboard that demonstrates real KPI selection and live filtering rather than a static concept image, plus a simple forecasting layer that turns a historical trend into a forward-looking number.",
     contribution: "Prepared the data structure, dashboard layout, KPI presentation and insight summary.",
     icon: "chart",
   },
@@ -186,15 +187,15 @@ export const featuredWork = [
     title: "Information Systems Process Improvement Case Study",
     label: "Systems analysis case study",
     role: "Business Systems Analyst",
-    tools: ["Systems analysis", "Process mapping", "Requirements", "Documentation"],
+    tools: ["Systems analysis", "Process mapping", "Python", "Streamlit", "Monte Carlo simulation"],
     liveUrl: "https://shainas-portfolio-thssg4vnnbcaygv5kt9fhb.streamlit.app/",
     problem: "A business process can become inefficient when operational steps, system requirements and data ownership are not clearly connected.",
     approach: [
-      "Mapped the current-state process and identified pain points.",
-      "Translated business needs into clearer system and workflow requirements.",
-      "Proposed a future-state process focused on data quality, clarity and operational improvement.",
+      "Mapped the five-step current and future-state process side by side, then built it as an interactive Streamlit app so the improvement isn't just asserted, it's adjustable.",
+      "Added a volume input that converts the per-cycle time saved into an annual cycle-days-saved figure, moving from 'this is faster' to 'this is how much faster, at your volume.'",
+      "Modelled each step as a triangular distribution and ran a 5,000-run Monte Carlo simulation to show P50/P90 cycle-time percentiles instead of a single point estimate, a lightweight schedule-risk technique.",
     ],
-    outcome: "A structured case study showing how the right business analysis and systems thinking can smooth out digital service delivery.",
+    outcome: "A working before/after case with a genuine quantitative layer: an annualised savings estimate and a Monte Carlo schedule-risk simulation that shows the range of likely outcomes, not just the best case.",
     contribution: "Analysed the process, identified improvement opportunities and documented practical recommendations.",
     icon: "systems",
   },
@@ -202,13 +203,14 @@ export const featuredWork = [
     title: "Supplier Performance Scorecard",
     label: "Supply chain analytics · Real dataset",
     role: "Supply Chain Analyst / Data Analyst",
-    tools: ["Python", "Pandas", "OTIF & KPI design", "Weighted scoring models", "Risk flagging"],
+    tools: ["Python", "Streamlit", "Pandas", "Altair", "Weighted scoring models"],
     liveUrl: "https://shainas-portfolio-gr2fdup2rmfdsppgtkllah.streamlit.app/",
     problem: "Procurement teams need a repeatable way to see which suppliers are actually underperforming on delivery, consistency, quality and cost, before it becomes a service or cost problem, not just a gut feeling from the last late shipment.",
     approach: [
       "Built a Python (pandas) pipeline that scores every supplier on OTIF, lead-time mean and variance against schedule, defect rate and price variance, using the real DataCo Smart Supply Chain dataset from Kaggle (180,519 order lines), not a mocked-up sample.",
       "Since the dataset has no supplier ID, QC field or contract price table, I defined and documented explicit proxies for each rather than pretending the data was cleaner than it is.",
       "Combined the four metrics into a weighted composite score and calibrated risk flags (Critical, Watch, Preferred) to the dataset's own distribution instead of an unmeetable fixed SLA target.",
+      "Deployed it as an interactive Streamlit app with live weight sliders, a sensitivity view that flags exactly which suppliers change risk category as the weights move, and a per-supplier benchmark chart against the dataset average.",
     ],
     outcome: "A working, reproducible scorecard that ranked all 11 supplier groups and surfaced something the raw numbers alone wouldn't show: late delivery in this dataset is driven far more by shipping mode (0-60% on-time) than by any individual supplier (37-41.5%). That's the kind of root-cause distinction that changes what a procurement team should actually act on.",
     contribution: "Built the full pipeline (metric design, scoring model, risk-flag calibration, tests) and the scorecard demo end to end.",

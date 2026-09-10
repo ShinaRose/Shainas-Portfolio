@@ -29,12 +29,26 @@ function getStatusBadge(project) {
   return null;
 }
 
-export default function WorkSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+// Only tags shared by more than one project are worth surfacing as a
+// top-level filter; a tag used by exactly one project doesn't narrow
+// anything down, it's already visible on that one card.
+const toolCounts = featuredWork.flatMap((project) => project.tools).reduce((counts, tool) => {
+  counts[tool] = (counts[tool] || 0) + 1;
+  return counts;
+}, {});
+const filterableTools = Object.keys(toolCounts)
+  .filter((tool) => toolCounts[tool] > 1)
+  .sort((a, b) => toolCounts[b] - toolCounts[a] || a.localeCompare(b));
 
-  const toggle = (index) => {
-    setOpenIndex((current) => (current === index ? null : index));
+export default function WorkSection() {
+  const [openTitle, setOpenTitle] = useState(featuredWork[0].title);
+  const [activeTag, setActiveTag] = useState(null);
+
+  const toggle = (title) => {
+    setOpenTitle((current) => (current === title ? null : title));
   };
+
+  const visibleWork = activeTag ? featuredWork.filter((project) => project.tools.includes(activeTag)) : featuredWork;
 
   return (
     <section id="work" className="section-pattern scroll-mt-28">
@@ -47,9 +61,34 @@ export default function WorkSection() {
           />
         </motion.div>
 
+        <div className="mb-8 flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects by tool">
+          <button
+            type="button"
+            onClick={() => setActiveTag(null)}
+            className={`rounded-full border px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus:ring-4 focus:ring-rose-200 ${
+              activeTag === null ? "border-rose-700 bg-rose-700 text-white" : "border-rose-100 bg-white text-slate-600 hover:border-rose-300 hover:text-rose-800"
+            }`}
+          >
+            All ({featuredWork.length})
+          </button>
+          {filterableTools.map((tool) => (
+            <button
+              key={tool}
+              type="button"
+              onClick={() => setActiveTag((current) => (current === tool ? null : tool))}
+              className={`rounded-full border px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus:ring-4 focus:ring-rose-200 ${
+                activeTag === tool ? "border-rose-700 bg-rose-700 text-white" : "border-rose-100 bg-white text-slate-600 hover:border-rose-300 hover:text-rose-800"
+              }`}
+            >
+              {tool} ({toolCounts[tool]})
+            </button>
+          ))}
+        </div>
+
         <div className="space-y-6">
-          {featuredWork.map((project, index) => {
-            const isOpen = openIndex === index;
+          {visibleWork.map((project) => {
+            const index = featuredWork.indexOf(project);
+            const isOpen = openTitle === project.title;
             const detailId = `case-study-detail-${index}`;
             const statusBadge = getStatusBadge(project);
 
@@ -93,12 +132,17 @@ export default function WorkSection() {
                         </div>
                       )}
 
-                      <div className="mt-5 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wide text-purple-800">
-                        {project.tools.map((tool, toolIndex) => (
-                          <span key={tool}>
+                      <div className="mt-5 flex flex-wrap gap-x-1 gap-y-2 text-xs font-bold uppercase tracking-wide text-purple-800">
+                        {project.tools.map((tool) => (
+                          <button
+                            key={tool}
+                            type="button"
+                            onClick={() => setActiveTag((current) => (current === tool ? null : tool))}
+                            className="rounded px-1.5 py-0.5 transition-colors hover:bg-purple-100 hover:text-purple-950 focus:outline-none focus:ring-4 focus:ring-purple-200"
+                            aria-label={`Filter projects by ${tool}`}
+                          >
                             {tool}
-                            {toolIndex < project.tools.length - 1 ? " ·" : ""}
-                          </span>
+                          </button>
                         ))}
                       </div>
 
@@ -156,7 +200,7 @@ export default function WorkSection() {
 
                       <motion.button
                         type="button"
-                        onClick={() => toggle(index)}
+                        onClick={() => toggle(project.title)}
                         whileTap={{ scale: 0.97 }}
                         aria-expanded={isOpen}
                         aria-controls={detailId}

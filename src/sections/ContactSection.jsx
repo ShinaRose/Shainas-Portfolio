@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/Card.jsx";
+import CopyEmailButton from "../components/CopyEmailButton.jsx";
 import Icon from "../components/Icon.jsx";
-import { actionLinks, linkedInUrl } from "../data/portfolioData.js";
+import { actionLinks, email, linkedInUrl } from "../data/portfolioData.js";
 import { revealUp, viewportOnce } from "../utils/animations.js";
 
 export default function ContactSection() {
@@ -45,6 +46,10 @@ export default function ContactSection() {
               >
                 <Icon name="linkedin" className="mr-2 inline h-4 w-4" /> LinkedIn
               </motion.a>
+              <div className="flex items-center justify-center gap-2 text-xs font-semibold text-rose-100/80 md:justify-between">
+                <span>{email}</span>
+                <CopyEmailButton className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-white/40" />
+              </div>
             </div>
           </CardContent>
         </Card>
