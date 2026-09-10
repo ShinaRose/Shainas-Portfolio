@@ -13,6 +13,11 @@ MONTHS_WITH_PROJECTION = MONTHS + [NEXT_MONTH_LABEL]
 CATEGORY_SHARE_START = {"Services": 0.30, "Hardware": 0.33, "Subscriptions": 0.23, "Support Plans": 0.14}
 CATEGORY_SHARE_END = {"Services": 0.38, "Hardware": 0.27, "Subscriptions": 0.22, "Support Plans": 0.13}
 CATEGORY_COLOR = {"Services": "#be123c", "Hardware": "#f43f5e", "Subscriptions": "#a855f7", "Support Plans": "#581c87"}
+# Illustrative per-category fulfilment rates. Hardware is deliberately the
+# laggard, consistent with the "Hardware category's backlog" note below.
+CATEGORY_FULFILMENT_PCT = {"Services": 98.5, "Hardware": 91.0, "Subscriptions": 99.2, "Support Plans": 97.8}
+TOTAL_ORDERS_LATEST_MONTH = 3412
+AVG_ORDER_VALUE = 83.40
 
 st.set_page_config(page_title="Business Decision Support Dashboard", page_icon="📊", layout="wide")
 
@@ -52,11 +57,28 @@ q3_revenue = monthly_filtered.tail(3).sum()
 q2_revenue = monthly_filtered.iloc[-6:-3].sum() if len(monthly_filtered) >= 6 else float("nan")
 revenue_delta = f"{(q3_revenue / q2_revenue - 1) * 100:+.0f}% vs Q2" if q2_revenue else "n/a"
 
+latest_month_all_revenue = by_category[by_category["Month"] == MONTHS[-1]]["Revenue"].sum()
+latest_month_selected_revenue = monthly_filtered.iloc[-1]
+revenue_share = latest_month_selected_revenue / latest_month_all_revenue if latest_month_all_revenue else 0.0
+orders_estimate = TOTAL_ORDERS_LATEST_MONTH * revenue_share
+
+if selected:
+    latest_by_category = filtered[filtered["Month"] == MONTHS[-1]].set_index("Category")["Revenue"]
+    category_total = latest_by_category.sum()
+    fulfilment_pct = sum((latest_by_category[c] / category_total) * CATEGORY_FULFILMENT_PCT[c] for c in latest_by_category.index) if category_total else float("nan")
+else:
+    fulfilment_pct = float("nan")
+
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("Revenue (Q3)", f"€{q3_revenue:,.0f}", revenue_delta)
-k2.metric("Orders", "3,412", "+6% vs Q2")
-k3.metric("Avg. order value", "€83.40", "+5% vs Q2")
-k4.metric("Fulfilment rate", "96.1%", "-1.4pts vs Q2")
+k2.metric("Orders (latest month)", f"{orders_estimate:,.0f}", f"{revenue_share * 100:.0f}% of company-wide orders", delta_color="off")
+k3.metric("Avg. order value", f"€{AVG_ORDER_VALUE:,.2f}", "+5% vs Q2", help="Stays close to constant across category mixes in this model, since orders scale with revenue.")
+k4.metric(
+    "Fulfilment rate",
+    f"{fulfilment_pct:.1f}%" if selected else "n/a",
+    "blended by revenue share of the categories selected" if selected else "select a category",
+    delta_color="off",
+)
 
 if not selected:
     st.info("Select at least one category above to see the charts.")
